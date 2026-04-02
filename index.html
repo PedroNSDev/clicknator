@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clicknator</title>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-    crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
 
   <style>
     * {
@@ -42,29 +41,71 @@
     }
 
     h1 {
+      margin-bottom: 10px;
+      font-size: 42px;
+      color: #38bdf8;
+    }
+
+    #stats {
+      font-size: 16px;
       margin-bottom: 20px;
-      font-size: 32px;
+      color: #94a3b8;
     }
 
     #counter {
-      font-size: 28px;
-      margin-bottom: 20px;
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #fbbf24;
     }
 
-    button {
-      padding: 20px 40px;
-      font-size: 20px;
+    /* Botão Principal */
+    .btn-main {
+      padding: 20px 50px;
+      font-size: 24px;
+      font-weight: bold;
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
       background: #22c55e;
+      color: white;
+      cursor: pointer;
+      transition: 0.1s;
+      box-shadow: 0 8px 0 #16a34a;
+    }
+
+    .btn-main:active {
+      transform: translateY(8px);
+      box-shadow: 0 0 0 #16a34a;
+    }
+
+    /* Painel de Upgrades */
+    .upgrades {
+      margin-top: 40px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-upgrade {
+      padding: 15px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #3b82f6;
       color: white;
       cursor: pointer;
       transition: 0.2s;
     }
 
-    button:hover {
-      background: #16a34a;
-      transform: scale(1.05);
+    .btn-upgrade:hover {
+      background: #2563eb;
+    }
+
+    .btn-upgrade:disabled {
+      background: #475569;
+      color: #94a3b8;
+      cursor: not-allowed;
     }
 
     @media (max-width: 900px) {
@@ -77,9 +118,7 @@
 
 <body>
 
-
   <div class="sidebar">
-
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-XXXXXXXXXXXX"
@@ -90,8 +129,19 @@
 
   <div class="main">
     <h1>Clicknator</h1>
+    <div id="stats">Poder do Clique: 1 | Auto-Clicks: 0/s</div>
     <div id="counter">Clicks: 0</div>
-    <button onclick="clickButton()">CLICK!</button>
+    
+    <button class="btn-main" onclick="clickButton()">CLICK!</button>
+
+    <div class="upgrades">
+      <button class="btn-upgrade" id="btn-power" onclick="buyPower()">
+        💪 Mais Força (+1/click)<br><small>Custo: 10 Clicks</small>
+      </button>
+      <button class="btn-upgrade" id="btn-auto" onclick="buyAuto()">
+        🤖 Auto-Clicker (+1/seg)<br><small>Custo: 50 Clicks</small>
+      </button>
+    </div>
   </div>
 
   <div class="sidebar">
@@ -104,16 +154,73 @@
   </div>
 
   <script>
+    // Variáveis do jogo
     let clicks = 0;
+    let clickPower = 1;
+    let autoClicks = 0;
 
-    function clickButton() {
-      clicks++;
-      document.getElementById("counter").innerText = "Clicks: " + clicks;
+    // Custos dos upgrades
+    let costPower = 10;
+    let costAuto = 50;
+
+    // Função para atualizar a tela com os valores atuais
+    function updateDisplay() {
+      document.getElementById("counter").innerText = "Clicks: " + Math.floor(clicks);
+      document.getElementById("stats").innerText = `Poder do Clique: ${clickPower} | Auto-Clicks: ${autoClicks}/s`;
+      
+      // Atualiza textos dos botões de upgrade
+      document.getElementById("btn-power").innerHTML = `💪 Mais Força (+1/click)<br><small>Custo: ${costPower} Clicks</small>`;
+      document.getElementById("btn-auto").innerHTML = `🤖 Auto-Clicker (+1/seg)<br><small>Custo: ${costAuto} Clicks</small>`;
+
+      // Desabilita os botões se o jogador não tiver cliques suficientes
+      document.getElementById("btn-power").disabled = clicks < costPower;
+      document.getElementById("btn-auto").disabled = clicks < costAuto;
     }
 
+    // Clique principal
+    function clickButton() {
+      clicks += clickPower;
+      updateDisplay();
+    }
+
+    // Comprar Upgrade de Força
+    function buyPower() {
+      if (clicks >= costPower) {
+        clicks -= costPower; // Paga o custo
+        clickPower += 1; // Aumenta o poder
+        costPower = Math.floor(costPower * 1.5); // Aumenta o custo para a próxima vez (50% mais caro)
+        updateDisplay();
+      }
+    }
+
+    // Comprar Upgrade de Auto-Clicker
+    function buyAuto() {
+      if (clicks >= costAuto) {
+        clicks -= costAuto; // Paga o custo
+        autoClicks += 1; // Aumenta os cliques automáticos
+        costAuto = Math.floor(costAuto * 1.5); // Aumenta o custo para a próxima vez
+        updateDisplay();
+      }
+    }
+
+    // Loop do Auto-Clicker (Roda a cada 1000 milissegundos = 1 segundo)
+    setInterval(function() {
+      if (autoClicks > 0) {
+        clicks += autoClicks;
+        updateDisplay();
+      }
+    }, 1000);
+
+    // Chama a função uma vez no início para ajustar os botões
+    updateDisplay();
+
     // Inicializa anúncios
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    (adsbygoogle = window.adsbygoogle || []).push({});
+    try {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    } catch(e) {
+      console.log("Erro no AdSense (normal ao rodar localmente)");
+    }
   </script>
 
 </body>
