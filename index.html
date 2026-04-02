@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clicknator</title>
 
-  <!-- Google AdSense (substitua pelo seu ID) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
     crossorigin="anonymous"></script>
 
@@ -24,7 +23,6 @@
       color: white;
     }
 
-    /* Laterais (ads) */
     .sidebar {
       width: 200px;
       background: #020617;
@@ -34,7 +32,6 @@
       padding: 10px;
     }
 
-    /* Área principal */
     .main {
       flex: 1;
       display: flex;
@@ -69,7 +66,6 @@
       transform: scale(1.05);
     }
 
-    /* Responsivo */
     @media (max-width: 900px) {
       .sidebar {
         display: none;
@@ -80,9 +76,9 @@
 
 <body>
 
-  <!-- Anúncio esquerdo -->
+
   <div class="sidebar">
-    <!-- Substitua pelos dados reais do AdSense -->
+
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-XXXXXXXXXXXX"
@@ -91,14 +87,12 @@
          data-full-width-responsive="true"></ins>
   </div>
 
-  <!-- Jogo -->
   <div class="main">
     <h1>Clicknator</h1>
     <div id="counter">Clicks: 0</div>
     <button onclick="clickButton()">CLICK!</button>
   </div>
 
-  <!-- Anúncio direito -->
   <div class="sidebar">
     <ins class="adsbygoogle"
          style="display:block"
