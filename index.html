@@ -7,53 +7,75 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+  <audio id="bg-music" src="bg.mp3" loop></audio>
+  <audio id="click-sound" src="click.mp3"></audio>
+  <audio id="buy-sound" src="buy.mp3"></audio>
     <nav class="sidebar">
         <div class="logo">CLICKNATOR</div>
+
         <button class="nav-btn active" data-tab="clicker" onclick="showTab('clicker')">Principal</button>
         <button class="nav-btn" data-tab="loja" onclick="showTab('loja')">Loja</button>
         <button class="nav-btn" data-tab="rebirth" onclick="showTab('rebirth')">Ascensão</button>
         <button class="nav-btn" data-tab="conquistas" onclick="showTab('conquistas')">Conquistas</button>
         <button class="nav-btn" data-tab="patch-notes" onclick="showTab('patch-notes')">Notas</button>
-        <button class="nav-btn" data-tab="save-load" onclick="showTab('save-load')">Saltar/Carregar</button>
+        <button class="nav-btn" data-tab="save-load" onclick="showTab('save-load')">Salvar/Carregar</button>
         <button class="nav-btn" data-tab="stats" onclick="showTab('stats')">Estatísticas</button>
     </nav>
 
     <main class="main-container" id="main-content">
 
+        <!-- CLICKER -->
         <section id="clicker" class="content-section active">
             <div id="counter">0</div>
             <div id="stats-bar">Poder: 1 | Auto: 0/s</div>
             <div id="rebirth-mult">Multiplicador: x1</div>
+
             <div class="click-area">
-                <button class="btn-main" onclick="game.click(event)">CLickkk</button>
+                <img 
+                    src="glabidle.png" 
+                    id="main-click" 
+                    class="click-img"
+                    onclick="game.click(event)"
+                >
             </div>
         </section>
 
+        <!-- LOJA -->
         <section id="loja" class="content-section">
             <h2 class="shop-title">Upgrades</h2>
             <div class="upgrades-grid" id="shop"></div>
         </section>
 
+        <!-- ASCENSÃO -->
         <section id="rebirth" class="content-section">
             <h2>Ascensão</h2>
             <p>Reinicie e ganhe bônus permanente.</p>
+
             <div id="rebirth-info"></div>
             <div id="rebirth-btn"></div>
         </section>
 
+        <!-- CONQUISTAS -->
         <section id="conquistas" class="content-section">
             <h2>Conquistas</h2>
             <p>Aqui você verá as conquistas desbloqueadas.</p>
         </section>
 
+        <!-- PATCH NOTES -->
         <section id="patch-notes" class="content-section">
             <h2>Notas de Atualização</h2>
         </section>
 
+      
+        <section id="save-load" class="content-section">
+            <h2>Salvar / Carregar</h2>
+            <div id="save-btn"></div>
+        </section>
+
+        <!-- STATS -->
         <section id="stats" class="content-section">
             <h2>Estatísticas</h2>
-            <p>Aqui você verá o progresso do jogador.</p>
+            <p>Seu Progresso.</p>
         </section>
 
     </main>

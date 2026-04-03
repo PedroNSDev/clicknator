@@ -144,15 +144,24 @@ body {
 
 /* --------------------------------------PARTICLES-------------------------------------*/
 .particle {
-    position: absolute;
+    position: fixed;
+    width: 40px;
+    height: 40px;
     pointer-events: none;
-    width: 45px;
-    height: 45px;
-    background-image: url('receita.png'); /* sua imagem */
     background-size: contain;
     background-repeat: no-repeat;
-    z-index: 1000;
-    animation: floatUp 0.8s ease-out forwards;
+    animation: pop 0.8s forwards;
+}
+
+@keyframes pop {
+    0% {
+        transform: translate(0, 0) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y)) scale(1.2);
+        opacity: 0;
+    }
 }
 
 @keyframes floatUp {
@@ -219,4 +228,22 @@ body {
     font-size: 0.9rem;
     color: #94a3b8;
     margin: 0;
+}
+.stats-box {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    margin-top: 15px;
+}
+
+.stats-box p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+} 
+.click-img {
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.08s ease;
+    user-select: none;
 }

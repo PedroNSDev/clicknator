@@ -100,6 +100,9 @@ const game = {
     clicks: 0,
     clickPower: 1,
     autoClicks: 0,
+    totalClicks: 0,
+    totalAscensions: 0,
+    playTime: 0,
 
     ascensionPoints: 0,
     ascensionLevel: 0,
@@ -107,12 +110,12 @@ const game = {
     getAscensionRequirement() {
         return 10000 * (this.ascensionLevel + 1);
     },
-
+    
     doAscension() {
         if (this.clicks < this.getAscensionRequirement()) return;
-
+        
         this.ascensionLevel++;
-
+        this.totalAscensions++; 
         let total = this.clicks;
         let needed = 10000;
         let gained = 0;
@@ -165,13 +168,15 @@ const game = {
     ],
 
     click(e) {
-        this.clicks += this.clickPower;
-        spawnParticle(e.clientX, e.clientY);
-        this.checkConquistas();
-        this.update();
-        saveGame();
-    },
+    this.clicks += this.clickPower;
+    this.totalClicks += this.clickPower;
 
+    spawnParticle(e.clientX, e.clientY, false); // normal
+
+    this.checkConquistas();
+    this.update();
+    saveGame();
+    },
     checkConquistas() {
         if (this.clicks >= 1) this.conquistas[0].hide = false;
         if (this.clicks >= 100) this.conquistas[1].hide = false;
@@ -188,13 +193,26 @@ const game = {
 
         document.getElementById('rebirth-mult').innerText =
             `Ascensão: ${this.ascensionPoints}`;
-
+        
         this.renderShop();
         this.renderAscension();
+        this.renderStats();
         this.renderConquistas();
         this.renderPatchNotes();
     },
+    renderStats() {
+    const container = document.getElementById("stats");
 
+    container.innerHTML = `
+        <h2>Estatísticas</h2>
+
+        <div class="stats-box">
+            <p><b>Cliques Totais:</b> ${this.totalClicks.toLocaleString()}</p>
+            <p><b>Ascensões Totais:</b> ${this.totalAscensions}</p>
+            <p><b>Tempo de Jogo:</b> ${formatTime(this.playTime)}</p>
+        </div>
+    `;
+},
     renderShop() {
         const shop = document.getElementById('shop');
         shop.innerHTML = "";
@@ -267,15 +285,35 @@ const game = {
 };
 
 // ================= PARTICULAS =================
-function spawnParticle(x, y) {
+function spawnParticle(x, y, isGray = false) {
     const p = document.createElement('div');
     p.className = 'particle';
+
+    // posição inicial
     p.style.left = (x - 20) + 'px';
     p.style.top = (y - 20) + 'px';
+    p.style.backgroundImage = "url('iconreceita.png')";
+
+    // 🎯 DIREÇÃO ALEATÓRIA (leque)
+    const angle = Math.random() * Math.PI; 
+    const distance = 30 + Math.random() * 50; 
+
+    const moveX = Math.cos(angle) * distance;
+    const moveY = Math.sin(angle) * distance * -1; 
+
+    p.style.setProperty('--x', `${moveX}px`);
+    p.style.setProperty('--y', `${moveY}px`);
+
+    if (isGray) {
+        p.style.filter = "grayscale(1) brightness(0.7)";
+        p.style.opacity = "0.6";
+        p.style.transform = "scale(0.9)";
+    }
+
     document.body.appendChild(p);
+
     setTimeout(() => p.remove(), 800);
 }
-
 // ================= ABAS =================
 function showTab(tabId) {
     const main = document.getElementById('main-content');
@@ -315,6 +353,9 @@ function saveGame() {
         clicks: game.clicks,
         clickPower: game.clickPower,
         autoClicks: game.autoClicks,
+        totalClicks: game.totalClicks,
+        totalAscensions: game.totalAscensions,
+        playTime: game.playTime,
         ascensionPoints: game.ascensionPoints,
         ascensionLevel: game.ascensionLevel,
         upgrades: game.upgrades.map(u => ({
@@ -336,6 +377,9 @@ function loadGame() {
     game.clicks = data.clicks;
     game.clickPower = data.clickPower;
     game.autoClicks = data.autoClicks;
+    game.totalClicks = data.totalClicks || 0;
+    game.totalAscensions = data.totalAscensions || 0;
+    game.playTime = data.playTime || 0;
     game.ascensionPoints = data.ascensionPoints;
     game.ascensionLevel = data.ascensionLevel;
 
@@ -352,9 +396,83 @@ function loadGame() {
         if (c) c.hide = d.hide;
     });
 }
+function formatTime(seconds) {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
 
+    return `${h}h ${m}m ${s}s`;
+}
 // ================= INIT =================
 document.addEventListener("DOMContentLoaded", () => {
+    // ===== LOAD DO JOGO =====
     loadGame();
     game.update();
+   
+
+    // ===== IMAGEM DE CLIQUE =====
+    const clickImg = document.getElementById("main-click");
+
+    if (clickImg) {
+        clickImg.addEventListener("mouseenter", () => {
+            clickImg.src = "glabmedo.png";
+        });
+
+        clickImg.addEventListener("mouseleave", () => {
+            clickImg.src = "glabidle.png";
+            clickImg.style.transform = "scale(1)";
+        });
+
+        clickImg.addEventListener("mousedown", () => {
+            clickImg.src = "glabclique.png";
+            clickImg.style.transform = "scale(0.85)";
+        });
+
+        clickImg.addEventListener("mouseup", () => {
+            clickImg.src = "glabmedo.png";
+            clickImg.style.transform = "scale(1)";
+        });
+    }
+});
+
+document.addEventListener("click", (e) => {
+    const target = e.target;
+
+    // elementos que NÃO devem gerar partícula cinza
+    const isInteractive =
+        target.closest(".click-img") ||
+        target.closest(".upgrade-card") ||
+        target.closest("button") ||
+        target.closest(".nav-btn");
+
+    if (!isInteractive) {
+        spawnParticle(e.clientX, e.clientY, true); // cinza
+    }
+});
+setInterval(() => {
+    // tempo
+    game.playTime++;
+
+    // autoclick
+    if (game.autoClicks > 0) {
+        game.clicks += game.autoClicks;
+        game.totalClicks += game.autoClicks;
+    }
+
+    // atualiza tudo
+    game.update();
+    saveGame();
+
+}, 1000);
+
+
+let audioStarted = false;
+
+document.addEventListener("click", () => {
+    if (!audioStarted) {
+        const bg = document.getElementById("bg-music");
+        bg.volume = 0.3; // volume mais baixo
+        bg.play();
+        audioStarted = true;
+    }
 });
