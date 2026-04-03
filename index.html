@@ -1,279 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="google-adsense-account" content="ca-pub-1194290959028721">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clicknator</title>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      display: flex;
-      height: 100vh;
-      background: #0f172a;
-      color: white;
-      overflow: hidden;
-    }
-
-    .sidebar {
-      width: 250px;
-      background: #020617;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      border-right: 1px solid #1e293b;
-    }
-
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px;
-      overflow-y: auto;
-    }
-
-    .header-section {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    h1 {
-      font-size: 48px;
-      color: #38bdf8;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-
-    #counter {
-      font-size: 54px;
-      font-weight: 800;
-      color: #fbbf24;
-      text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-    }
-
-    #stats-bar {
-      background: #1e293b;
-      padding: 10px 20px;
-      border-radius: 50px;
-      margin-bottom: 30px;
-      font-size: 14px;
-      color: #94a3b8;
-    }
-
-    .click-area {
-      margin-bottom: 50px;
-    }
-
-    .btn-main {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      border: none;
-      background: radial-gradient(circle, #22c55e 0%, #16a34a 100%);
-      color: white;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 10px 0 #15803d, 0 20px 30px rgba(0,0,0,0.5);
-      transition: transform 0.05s, box-shadow 0.05s;
-    }
-
-    .btn-main:active {
-      transform: translateY(8px);
-      box-shadow: 0 2px 0 #15803d, 0 10px 20px rgba(0,0,0,0.5);
-    }
-
-    .shop-title {
-      font-size: 24px;
-      margin-bottom: 20px;
-      width: 100%;
-      max-width: 600px;
-      border-bottom: 2px solid #334155;
-      padding-bottom: 10px;
-    }
-
-    .upgrades-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 15px;
-      width: 100%;
-      max-width: 800px;
-    }
-
-    .upgrade-card {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid #334155;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .upgrade-card:hover:not(.disabled) {
-      background: #334155;
-      transform: translateY(-2px);
-    }
-
-    .upgrade-card.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .upgrade-info h3 {
-      font-size: 16px;
-      color: #e2e8f0;
-    }
-
-    .upgrade-info p {
-      font-size: 12px;
-      color: #94a3b8;
-    }
-
-    .upgrade-cost {
-      text-align: right;
-    }
-
-    .cost-value {
-      display: block;
-      font-weight: bold;
-      color: #fbbf24;
-    }
-
-    .owned {
-      font-size: 12px;
-      color: #38bdf8;
-    }
-
-    @media (max-width: 1100px) {
-      .sidebar { display: none; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicknator Pro</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <aside class="sidebar">
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1194290959028721" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
-  </aside>
+    <nav class="sidebar">
+        <div class="logo">CLICKNATOR</div>
+        <button class="nav-btn active" data-tab="clicker" onclick="showTab('clicker')">Principal</button>
+        <button class="nav-btn" data-tab="loja" onclick="showTab('loja')">Loja</button>
+        <button class="nav-btn" data-tab="rebirth" onclick="showTab('rebirth')">Ascensão</button>
+        <button class="nav-btn" data-tab="conquistas" onclick="showTab('conquistas')">Conquistas</button>
+        <button class="nav-btn" data-tab="patch-notes" onclick="showTab('patch-notes')">Notas</button>
+        <button class="nav-btn" data-tab="save-load" onclick="showTab('save-load')">Saltar/Carregar</button>
+        <button class="nav-btn" data-tab="stats" onclick="showTab('stats')">Estatísticas</button>
+    </nav>
 
-  <main class="main">
-    <section class="header-section">
-      <h1>Clicknator</h1>
-      <div id="counter">0</div>
-      <div id="stats-bar">Poder: 1 | Automático: 0/s</div>
-    </section>
+    <main class="main-container" id="main-content">
 
-    <div class="click-area">
-      <button class="btn-main" onclick="game.click()">CLICK!</button>
-    </div>
-
-    <h2 class="shop-title">Loja de Upgrades</h2>
-    <div class="upgrades-grid" id="shop"></div>
-  </main>
-
-  <aside class="sidebar">
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1194290959028721" data-ad-slot="2222222222" data-ad-format="auto" data-full-width-responsive="true"></ins>
-  </aside>
-
-  <script>
-    class Upgrade {
-      constructor(id, name, description, baseCost, powerInc, autoInc) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.baseCost = baseCost;
-        this.cost = baseCost;
-        this.powerInc = powerInc;
-        this.autoInc = autoInc;
-        this.owned = 0;
-      }
-
-      buy() {
-        if (game.clicks >= this.cost) {
-          game.clicks -= this.cost;
-          this.owned++;
-          game.clickPower += this.powerInc;
-          game.autoClicks += this.autoInc;
-          this.cost = Math.floor(this.baseCost * Math.pow(1.5, this.owned));
-          game.update();
-          return true;
-        }
-        return false;
-      }
-    }
-
-    const game = {
-      clicks: 0,
-      clickPower: 1,
-      autoClicks: 0,
-      upgrades: [
-        new Upgrade('u1', '💪 Luva de Treino', '+1 por clique', 10, 1, 0),
-        new Upgrade('u2', '🤖 Robô Simples', '+1 clique/seg', 50, 0, 1),
-        new Upgrade('u3', '⚡ Super Mouse', '+5 por clique', 200, 5, 0),
-        new Upgrade('u4', '🏭 Fábrica de Cliques', '+10 cliques/seg', 1000, 0, 10),
-        new Upgrade('u5', '🚀 Portal Quântico', '+100 cliques/seg', 10000, 0, 100)
-      ],
-
-      click() {
-        this.clicks += this.clickPower;
-        this.update();
-      },
-
-      update() {
-        document.getElementById('counter').innerText = Math.floor(this.clicks).toLocaleString();
-        document.getElementById('stats-bar').innerText = `Poder: ${this.clickPower} | Automático: ${this.autoClicks}/s`;
-        this.renderShop();
-      },
-
-      renderShop() {
-        const shop = document.getElementById('shop');
-        shop.innerHTML = '';
-        this.upgrades.forEach(u => {
-          const card = document.createElement('div');
-          card.className = `upgrade-card ${this.clicks < u.cost ? 'disabled' : ''}`;
-          card.onclick = () => u.buy();
-          card.innerHTML = `
-            <div class="upgrade-info">
-              <h3>${u.name}</h3>
-              <p>${u.description}</p>
-              <span class="owned">Qtd: ${u.owned}</span>
+        <section id="clicker" class="content-section active">
+            <div id="counter">0</div>
+            <div id="stats-bar">Poder: 1 | Auto: 0/s</div>
+            <div id="rebirth-mult">Multiplicador: x1</div>
+            <div class="click-area">
+                <button class="btn-main" onclick="game.click(event)">CLickkk</button>
             </div>
-            <div class="upgrade-cost">
-              <span class="cost-value">${u.cost}</span>
-              <small>clicks</small>
-            </div>
-          `;
-          shop.appendChild(card);
-        });
-      }
-    };
+        </section>
 
-    setInterval(() => {
-      if (game.autoClicks > 0) {
-        game.clicks += game.autoClicks;
-        game.update();
-      }
-    }, 1000);
+        <section id="loja" class="content-section">
+            <h2 class="shop-title">Upgrades</h2>
+            <div class="upgrades-grid" id="shop"></div>
+        </section>
 
-    game.update();
+        <section id="rebirth" class="content-section">
+            <h2>Ascensão</h2>
+            <p>Reinicie e ganhe bônus permanente.</p>
+            <div id="rebirth-info"></div>
+            <div id="rebirth-btn"></div>
+        </section>
 
-    try {
-      (adsbygoogle = window.adsbygoogle || []).push({});
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    } catch(e) {}
-  </script>
+        <section id="conquistas" class="content-section">
+            <h2>Conquistas</h2>
+            <p>Aqui você verá as conquistas desbloqueadas.</p>
+        </section>
+
+        <section id="patch-notes" class="content-section">
+            <h2>Notas de Atualização</h2>
+        </section>
+
+        <section id="stats" class="content-section">
+            <h2>Estatísticas</h2>
+            <p>Aqui você verá o progresso do jogador.</p>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>

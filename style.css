@@ -1,0 +1,222 @@
+:root {
+    --bg: #0f172a;
+    --side: #020617;
+    --accent: #38bdf8;
+    --gold: #fbbf24;
+    --green: #22c55e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background: var(--bg);
+    color: white;
+    overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    background: var(--side);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-right: 1px solid #1e293b;
+    z-index: 100;
+}
+
+.logo {
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.nav-btn {
+    background: transparent;
+    border: 1px solid #334155;
+    color: #94a3b8;
+    padding: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover, .nav-btn.active {
+    background: var(--accent);
+    color: #020617;
+    border-color: var(--accent);
+    font-weight: bold;
+}
+
+/* MAIN CONTAINER & BLUR */
+.main-container {
+    flex: 1;
+    position: relative;
+    transition: filter 0.3s ease;
+}
+
+.blur-effect {
+    filter: blur(1px) brightness(1);
+}
+
+.content-section {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.content-section.active {
+    display: flex;
+}
+
+#counter {
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+}
+
+#stats-bar {
+    background: #1e293b;
+    padding: 8px 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+}
+
+.btn-main {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: none;
+    background: radial-gradient(circle, var(--green), #16a34a);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 0 #15803d;
+    transition: transform 0.05s;
+}
+
+.btn-main:active {
+    transform: translateY(5px);
+    box-shadow: 0 5px 0 #15803d;
+}
+
+/* UPGRADES */
+.upgrades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 30px;
+}
+
+.upgrade-card {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #334155;
+    cursor: pointer;
+}
+
+.upgrade-card.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.8);
+}
+
+/* --------------------------------------PARTICLES-------------------------------------*/
+.particle {
+    position: absolute;
+    pointer-events: none;
+    width: 45px;
+    height: 45px;
+    background-image: url('receita.png'); /* sua imagem */
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1000;
+    animation: floatUp 0.8s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
+}
+#rebirth-mult {
+    margin-top: 10px;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+#rebirth-info {
+    margin: 20px 0;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.btn {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.rebirth-btn {
+    background: var(--gold);
+    color: black;
+}
+/* CONQUISTAS HORIZONTAL */
+.conquista {
+    display: flex;
+    align-items: center;
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 8px 0;
+    gap: 15px;
+    border: 1px solid #334155;
+}
+
+.conquista img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+}
+
+.conquista-textos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.conquista-textos b {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.conquista-textos p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin: 0;
+}
