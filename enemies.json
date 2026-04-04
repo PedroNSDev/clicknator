@@ -5,6 +5,7 @@
       "enemies": [
         { "name": "CherryCherry", "hp": 20, "reward": 10, "img": "inimigos/Cherry.gif" },
         { "name": "BonBon", "hp": 30, "reward": 20, "img": "inimigos/BonBon.gif" },
+        { "name": "BuggyBoo", "hp": 30, "reward": 20, "img": "inimigos/BuggyBoohCave.gif" },
         { "name": "BuggyBoo", "hp": 30, "reward": 20, "img": "inimigos/BuggyBoohCave.gif" }
       ]
     },
