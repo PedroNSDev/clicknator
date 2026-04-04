@@ -19,14 +19,30 @@
     {
       "minZona": 20,
       "enemies": [
+        { "name": "Gloomy Shroomy", "hp": 60, "reward": 50, "img": "inimigos/gloomyShroomy.gif" },
+        { "name": "Shroomy", "hp": 70, "reward": 55, "img": "inimigos/Shroomy.gif" },
+        { "name": "Shy Quid", "hp": 50, "reward": 40, "img": "inimigos/Shy Quid.gif" }
+      ]
+    },
+    {
+      "minZona": 30,
+      "enemies": [
         { "name": "Saparalho", "hp": 75, "reward": 60, "img": "inimigos/Saparalho.gif" },
         { "name": "MageHog", "hp": 90, "reward": 80, "img": "inimigos/MageHog.gif" }
       ]
     },
-        {
+    {
       "minZona": 40,
       "enemies": [
-        { "name": "??", "hp": 100, "reward": 100, "img": "inimigos/doubleTroubleDefinitive.gif" }
+        { "name": "Almas Penadas", "hp": 100, "reward": 90, "img": "inimigos/AlmasPenadas.gif" },
+        { "name": "Espreitador", "hp": 90, "reward": 80, "img": "inimigos/Espreitador.gif" },
+        { "name": "careca(OH MEU DEUS)", "hp": 80, "reward": 70, "img": "inimigos/careca.gif" }
+      ]
+    },
+    {
+      "minZona": 60,
+      "enemies": [
+        { "name": "??", "hp": 200, "reward": 220, "img": "inimigos/doubleTroubleDefinitive.gif" }
       ]
     }
   ]

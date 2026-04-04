@@ -6,7 +6,6 @@
     <title>Clicknator Pro</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- Google AdSense -->
     <script data-ad-client="ca-pub-1194290959028721" async 
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
@@ -16,7 +15,6 @@
 <audio id="click-sound" src="click.mp3"></audio>
 <audio id="buy-sound" src="buy.mp3"></audio>
 
-<!-- MENU ESQUERDA -->
 <nav class="sidebar">
     <div class="logo">Nah>:P</div>
 
@@ -27,16 +25,19 @@
     <button class="nav-btn" data-tab="stats" onclick="showTab('stats')">Estatísticas</button>
 </nav>
 
-<!-- CONTAINER PRINCIPAL -->
 <main class="main-container">
 
-    <!-- CENTRO (ONDE FICA O JOGO + FUNDO) -->
     <div class="center-content" id="center-content">
-
-        <!-- CLICKER -->
+    
         <section id="clicker" class="content-section active">
             <div id="counter">0</div>
             <div id="stats-bar">Poder: 1 | Auto: 0/s</div>
+
+            <div class="enemy-container">
+                <img id="enemy-img" class="enemy-sprite" onclick="game.click(event)">
+                
+                <img src="Assets/Moldura.gif" class="enemy-frame">
+            </div>
 
             <div class="enemy-ui">
                 <div id="enemy-name" class="enemy-name"></div>
@@ -48,15 +49,11 @@
                 <div id="enemy-hp" class="enemy-hp"></div>
             </div>
 
-            <div class="click-area">
-                <img id="enemy-img" class="click-img" onclick="game.click(event)">
-            </div>
-
-            <!-- Texto para AdSense entender que há conteúdo -->
-            <p>Derrote inimigos, compre upgrades e avance nas zonas para desbloquear conquistas!</p>
+            <p style="margin-top: 20px; font-size: 0.8rem; color: #94a3b8;">
+                Derrote inimigos, compre upgrades e avance nas zonas!
+            </p>
         </section>
 
-        <!-- ASCENSÃO -->
         <section id="rebirth" class="content-section">
             <h2>Ascensão</h2>
             <p>Reinicie e ganhe bônus permanente.</p>
@@ -65,18 +62,15 @@
             <div id="rebirth-btn"></div>
         </section>
 
-        <!-- CONQUISTAS -->
         <section id="conquistas" class="content-section">
             <h2>Conquistas</h2>
             <p>Aqui você verá as conquistas desbloqueadas.</p>
         </section>
 
-        <!-- PATCH NOTES -->
         <section id="patch-notes" class="content-section">
             <h2>Notas de Atualização</h2>
         </section>
 
-        <!-- STATS -->
         <section id="stats" class="content-section">
             <h2>Estatísticas</h2>
             <p>Seu progresso.</p>
@@ -84,7 +78,6 @@
 
     </div>
 
-    <!-- LOJA FIXA DIREITA -->
     <div class="shop-side">
         <h3>Upgrades</h3>
         <div id="shop"></div>
@@ -92,8 +85,7 @@
 
 </main>
 
-<!-- ANÚNCIO GOOGLE ADSENSE NA PARTE INFERIOR -->
-<div style="text-align:center; margin: 20px 0;">
+<div style="text-align:center; margin: 10px 0;">
     <ins class="adsbygoogle"
          style="display:block; text-align:center;"
          data-ad-client="ca-pub-1194290959028721"
@@ -101,7 +93,7 @@
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
     <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </div>
 

@@ -2,15 +2,14 @@
     --bg: #ffffff;
     --side: #888888;
     --accent: #bbbbbb;
-    --gold: #ffffff;
+    --gold: #7e7373;
     --green: #98a99e;
 }
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Papyrus', fantasy;
 }
 
 body {
@@ -117,20 +116,31 @@ body {
 /* ===================== UPGRADES ===================== */
 .upgrades-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* CORRIGIDO: auto-fill garante os botões com espaço fixo de 200px */
+    grid-template-columns: repeat(auto-fill, 200px); 
     gap: 15px;
+    justify-content: start; 
     width: 100%;
     max-width: 900px;
     margin-top: 30px;
 }
 
 .upgrade-card {
-    background: #28292a;
+    background: url(container.gif);
+   image-rendering: crisp-edges;
+
+    image-rendering: pixelated;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    
     padding: 12px;
-    border-radius: 12px;
-    display: flex;               /* layout horizontal: imagem + texto */
-    align-items: center;         /* centraliza verticalmente */
-    gap: 12px;                   /* espaço entre imagem e texto */
+    height: 90px; 
+    width: 100%;
+    
+    border-radius: 15px;
+    display: flex;              
+    align-items: center;        
+    gap: 12px;                  
     border: 1px solid #1d1e20;
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.1s;
@@ -153,6 +163,9 @@ body {
     height: 60px;
     border-radius: 8px;
     object-fit: cover; 
+    image-rendering: crisp-edges;
+
+   image-rendering: pixelated;
 }
 
 /* container do texto*/
@@ -292,18 +305,59 @@ body {
     user-select: none;
 }
 
+/* CONTAINER PRINCIPAL DO INIMIGO */
+.enemy-container {
+    position: relative;
+    width: 250px;  /* Ajuste conforme o tamanho da sua moldura */
+    height: 250px; /* Ajuste conforme o tamanho da sua moldura */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    margin-bottom: 10px;
+}
+
+/* O MONSTRO (Camada de baixo) */
+.enemy-sprite {
+    width: 100%; /* Ajuste para o monstro caber dentro do vão da moldura */
+    height: 90%;
+    z-index: 1;
+    cursor: pointer;
+    image-rendering: pixelated;
+    transition: transform 0.08s ease;
+}
+
+.enemy-sprite:active {
+    transform: scale(1.1);
+}
+
+/*  MOLDURA */
+.enemy-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+ 
+    pointer-events: none; 
+    image-rendering: pixelated;
+}
+
+.enemy-sprite {
+    animation: floatEnemy 3s ease-in-out infinite;
+}
+
+@keyframes floatEnemy {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
 .enemy-ui {
     width: 300px;
-    margin-top: 10px;
     text-align: center;
+    z-index: 10; 
 }
-
-.enemy-name {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: var(--accent);
-}
-
 .health-bar {
     width: 100%;
     height: 18px;
@@ -347,17 +401,21 @@ body {
     background: #2f2d2d;
     border-left: 1px solid #303234;
     padding: 15px;
-    
     display: flex;
     flex-direction: column;
 }
-
-
 #shop {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    /* Ajuste aqui a distância das bordas */
+    padding-left: 2px;   /* Distância da esquerda */
+    padding-right: 2px;  /* Distância da direita (o "gap" que você quer) */
+    padding-bottom: 300px; /* Espaço no final para o scroll não cortar o último */
+    
     overflow-y: auto;
     flex: 1;
-
-    margin-top: 10px;
 }
 
 #shop::-webkit-scrollbar {
@@ -380,10 +438,10 @@ body {
     position: absolute;
     inset: 0;
 
-    background-image: url("tunel.png");
-    background-size: cover;
+    background-image: url("Assets/gb.gif");
+
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
 
     filter: brightness(0.4); 
     

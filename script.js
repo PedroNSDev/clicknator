@@ -219,7 +219,7 @@ updateEnemyUI() {
     },
 
     upgrades: [
-        new Upgrade('u1', '💪 Luva', '+1 clique', 10, 1, 0, "Tomate.png"),
+        new Upgrade('u1', 'Graveto', '+1 de poder', 10, 1, 0, "Upgrades/Graveto.gif"),
         new Upgrade('u2', '🤖 Robô', '+1/s', 50, 0, 1,"Tomate.png"),
         new Upgrade('u3', '⚡ Mouse', '+5 clique', 200, 5, 0, "Tomate.png"),
         new Upgrade('u4', '🏭 Fábrica', '+10/s', 1000, 0, 10, "Tomate.png"),
@@ -228,10 +228,32 @@ updateEnemyUI() {
     ],
 
     ascensionUpgrades: [
-        new AscensionUpgrade("a1", "Clique Melhorado", "+2 poder", 1, () => game.clickPower += 2),
-        new AscensionUpgrade("a2", "Auto Boost", "+5/s", 2, () => game.autoClicks += 5)
-    ],
-
+    new AscensionUpgrade(
+        "a1", 
+        "Clique Melhorado", 
+        "+2 poder", 
+        1, 
+        () => game.clickPower += 2
+    ),
+    new AscensionUpgrade(
+        "a2", 
+        "Auto Boost", 
+        "+5/s", 
+        2, 
+        () => game.autoClicks += 5
+    ),
+    new AscensionUpgrade(
+        "a3",
+        "Bônus de Ascensão",
+        "Aumenta 10% do Click Power, Click Manual e Poder Automático",
+        3,
+        () => {
+            game.bonus.clickPowerMult *= 1.1;
+            game.bonus.ClickMult *= 1.1;
+            game.bonus.PowerMult *= 1.1;
+        }
+    )
+],
     conquistas: [
         new Conquista("Primeiro Clique", "Tomate.png", "Você clicou!", true),
         new Conquista("100 Cliques", "Tomate.png", "Clique 100x", true),
@@ -244,7 +266,8 @@ updateEnemyUI() {
         new Patch("Lançamento", "01/04/2026", "Versão inicial do jogo."),
         new Patch("Ascensão", "02/04/2026", "Sistema de ascensão adicionado."),
         new Patch("Viusal 'Melhorado'", "04/04/2026", "Madruguei :P"),
-         new Patch("Mais inimigos e rework de zonas", "04/04/2026", ">:V")
+        new Patch("Mais inimigos e rework de zonas", "04/04/2026", ">:V"),
+        new Patch("Melhor Visual + INIMIGOS", "04/04/2026", "(Te Amo Luis <3)")
     ],
 
     click(e) {
@@ -330,31 +353,30 @@ updateEnemyUI() {
     });
 },
     renderAscension() {
-        const info = document.getElementById("rebirth-info");
+    const info = document.getElementById("rebirth-info");
 
-        info.innerHTML = `
-            <p>Pontos: ${this.ascensionPoints}</p>
-            <p>Necessário: ${this.getAscensionRequirement()}</p>
+    info.innerHTML = `
+        <p style="color: black;">Pontos: ${this.ascensionPoints}</p>
+        <p style="color: black;">Necessário: ${this.getAscensionRequirement()}</p>
+    `;
+
+    const btn = document.getElementById("rebirth-btn");
+    btn.innerHTML = `<button onclick="game.doAscension()">Ascender</button>`;
+
+    this.ascensionUpgrades.forEach(u => {
+        const el = document.createElement("div");
+        el.className = "upgrade-card";
+        el.onclick = () => u.buy();
+
+        el.innerHTML = `
+            <b style="color: black;">${u.name}</b>
+            <p style="color: black;">${u.desc}</p>
+            <span style="color: black;">${u.cost} AP</span>
         `;
 
-        const btn = document.getElementById("rebirth-btn");
-        btn.innerHTML = `<button onclick="game.doAscension()">Ascender</button>`;
-
-        this.ascensionUpgrades.forEach(u => {
-            const el = document.createElement("div");
-            el.className = "upgrade-card";
-            el.onclick = () => u.buy();
-
-            el.innerHTML = `
-                <b>${u.name}</b>
-                <p>${u.desc}</p>
-                <span>${u.cost} AP</span>
-            `;
-
-            info.appendChild(el);
-        });
-    },
-
+        info.appendChild(el);
+    });
+},
     renderConquistas() {
         const container = document.getElementById("conquistas");
         container.innerHTML = `<h2>Conquistas</h2>`;
