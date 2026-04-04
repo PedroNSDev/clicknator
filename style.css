@@ -2,7 +2,7 @@
     --bg: #ffffff;
     --side: #888888;
     --accent: #bbbbbb;
-    --gold: #000000;
+    --gold: #ffffff;
     --green: #98a99e;
 }
 
@@ -86,7 +86,7 @@ body {
     font-size: 64px;
     font-weight: 800;
     color: var(--gold);
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 20px rgb(100, 90, 90);
 }
 
 #stats-bar {
@@ -114,8 +114,7 @@ body {
     transform: translateY(5px);
     box-shadow: 0 5px 0 #15803d;
 }
-
-/* UPGRADES */
+/* ===================== UPGRADES ===================== */
 .upgrades-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -127,19 +126,64 @@ body {
 
 .upgrade-card {
     background: #28292a;
-    padding: 15px;
+    padding: 12px;
     border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex;               /* layout horizontal: imagem + texto */
+    align-items: center;         /* centraliza verticalmente */
+    gap: 12px;                   /* espaço entre imagem e texto */
     border: 1px solid #1d1e20;
     cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.upgrade-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .upgrade-card.disabled {
     opacity: 0.5;
     cursor: not-allowed;
     filter: grayscale(0.8);
+}
+
+
+.upgrade-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover; 
+}
+
+/* container do texto*/
+.upgrade-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;          
+    color: #ffffff;
+}
+
+/* nome */
+.upgrade-text h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+/* desc*/
+.upgrade-text p {
+    margin: 2px 0 0 0;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+/* quantidade e custo >:P */
+.upgrade-cost {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #facc15; /* amarelo para destaque */
 }
 
 /* --------------------------------------PARTICLES-------------------------------------*/

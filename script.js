@@ -1,6 +1,6 @@
 // ================= CLASSES =================
 class Upgrade {
-    constructor(id, name, desc, baseCost, powerInc, autoInc) {
+    constructor(id, name, desc, baseCost, powerInc, autoInc, img = null) {
         this.id = id;
         this.name = name;
         this.desc = desc;
@@ -10,6 +10,7 @@ class Upgrade {
         this.autoInc = autoInc;
         this.owned = 0;
         this.unlocked = false;
+        this.img = img; 
     }
 
     buy() {
@@ -218,12 +219,12 @@ updateEnemyUI() {
     },
 
     upgrades: [
-        new Upgrade('u1', '💪 Luva', '+1 clique', 10, 1, 0),
-        new Upgrade('u2', '🤖 Robô', '+1/s', 50, 0, 1),
-        new Upgrade('u3', '⚡ Mouse', '+5 clique', 200, 5, 0),
-        new Upgrade('u4', '🏭 Fábrica', '+10/s', 1000, 0, 10),
-        new Upgrade('u5', '🚀 Portal', '+100/s', 10000, 0, 100),
-        new Upgrade('u6', '⚡🤖💪 Mega Portal', '+200/s', 20000, 0, 200)
+        new Upgrade('u1', '💪 Luva', '+1 clique', 10, 1, 0, "Tomate.png"),
+        new Upgrade('u2', '🤖 Robô', '+1/s', 50, 0, 1,"Tomate.png"),
+        new Upgrade('u3', '⚡ Mouse', '+5 clique', 200, 5, 0, "Tomate.png"),
+        new Upgrade('u4', '🏭 Fábrica', '+10/s', 1000, 0, 10, "Tomate.png"),
+        new Upgrade('u5', '🚀 Portal', '+100/s', 10000, 0, 100, "Tomate.png"),
+        new Upgrade('u6', '⚡🤖💪 Mega Portal', '+200/s', 20000, 0, 200, "Tomate.png")
     ],
 
     ascensionUpgrades: [
@@ -235,13 +236,15 @@ updateEnemyUI() {
         new Conquista("Primeiro Clique", "Tomate.png", "Você clicou!", true),
         new Conquista("100 Cliques", "Tomate.png", "Clique 100x", true),
         new Conquista("1000 Cliques", "Tomate.png", "Clique 1000x", true),
-        new Conquista("Automação", "Tomate.png", "Compre upgrades", true)
+        new Conquista("Automação", "Tomate.png", "Compre upgrades", true),
+        
     ],
 
     patchNotes: [
         new Patch("Lançamento", "01/04/2026", "Versão inicial do jogo."),
         new Patch("Ascensão", "02/04/2026", "Sistema de ascensão adicionado."),
-        new Patch("Viusal 'Melhorado'", "04/04/2026", "Madruguei :P")
+        new Patch("Viusal 'Melhorado'", "04/04/2026", "Madruguei :P"),
+         new Patch("Mais inimigos e rework de zonas", "04/04/2026", ">:V")
     ],
 
     click(e) {
@@ -299,31 +302,33 @@ updateEnemyUI() {
         </div>
     `;
 },
-    renderShop() {
-        const shop = document.getElementById('shop');
-        shop.innerHTML = "";
+   renderShop() {
+    const shop = document.getElementById('shop');
+    shop.innerHTML = "";
+    shop.classList.add("upgrades-grid"); // garante o grid
 
-        this.upgrades.forEach(u => {
-            const visible = u.unlocked || this.clicks >= u.cost * 0.75;
-            if (!visible) return;
+    this.upgrades.forEach(u => {
+        const visible = u.unlocked || this.clicks >= u.cost * 0.75;
+        if (!visible) return;
 
-            const el = document.createElement("div");
-            el.className = `upgrade-card ${this.clicks < u.cost ? 'disabled' : ''}`;
-            el.onclick = () => u.buy();
+        const card = document.createElement('div');
+        card.className = `upgrade-card ${this.clicks < u.cost ? 'disabled' : ''}`;
+        card.onclick = () => u.buy();
 
-            el.innerHTML = `
-                <div>
-                    <h3>${u.name}</h3>
-                    <p>${u.desc}</p>
-                    <small>Qtd: ${u.owned}</small>
-                </div>
-                <b>${u.cost}</b>
-            `;
+        card.innerHTML = `
+            <div class="upgrade-image">
+                <img src="${u.img || 'placeholder.png'}" alt="${u.name}">
+            </div>
+            <div class="upgrade-text">
+                <h3>${u.name}</h3>
+                <p>${u.desc}</p>
+                <small>Qtd: ${u.owned} | Preço: ${u.cost.toLocaleString('pt-BR')}</small>
+            </div>
+        `;
 
-            shop.appendChild(el);
-        });
-    },
-
+        shop.appendChild(card);
+    });
+},
     renderAscension() {
         const info = document.getElementById("rebirth-info");
 
