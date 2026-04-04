@@ -161,7 +161,7 @@ const game = {
 },
 
 killEnemy() {
-    this.clicks += this.currentEnemy.reward * this.bonus.ClickMult;
+    this.clicks += this.currentEnemy.reward;
     this.totalEnemiesKilled++;
     this.zona++;
 
