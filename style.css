@@ -331,7 +331,6 @@ body {
     overflow: hidden;
 }
 
-/* background isolado */
 .center-content::before {
     content: "";
     position: absolute;
