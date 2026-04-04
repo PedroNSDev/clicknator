@@ -94,23 +94,99 @@ class Patch {
         container.appendChild(el);
     }
 }
+// =================ENEMIES=================
+
+
+
+
 
 // ================= GAME =================
 const game = {
     clicks: 0,
     clickPower: 1,
     autoClicks: 0,
-    totalClicks: 0,
-    totalAscensions: 0,
-    playTime: 0,
+    
 
     ascensionPoints: 0,
     ascensionLevel: 0,
 
+    zona: 1,
+    dif: 1,
+    currentEnemy: null,
+
+    totalClicks: 0,
+    totalAscensions: 0,
+    playTime: 0,
+    totalEnemiesKilled: 0,
+
+    bonus:{
+        clickPowerMult: 1,
+        ClickMult: 1,
+        PowerMult:1
+    },
+
     getAscensionRequirement() {
         return 10000 * (this.ascensionLevel + 1);
     },
-    
+    ///enemies--:
+   spawnEnemy() {
+    if (!enemyData.tiers) return;
+
+    const tier = [...enemyData.tiers]
+        .reverse()
+        .find(t => this.zona >= t.minZona);
+
+    if (!tier) return;
+
+    const base = tier.enemies[
+        Math.floor(Math.random() * tier.enemies.length)
+    ];
+
+    // escala infinita
+    const hpScale = Math.pow(1.2, this.zona);
+    const rewardScale = Math.pow(1.15, this.zona);
+
+    const hp = Math.floor(base.hp * hpScale * this.dif);
+    const reward = Math.floor(base.reward * rewardScale);
+
+    this.currentEnemy = {
+        name: `${base.name} +${this.zona}`,
+        maxHp: hp,
+        hp: hp,
+        reward: reward,
+        img: base.img
+    };
+
+    this.updateEnemyUI();
+},
+
+killEnemy() {
+    this.clicks += this.currentEnemy.reward * this.bonus.ClickMult;
+    this.totalEnemiesKilled++;
+    this.zona++;
+
+    if (this.zona % 5 === 0) {
+        this.dif += 0.05;
+    }
+
+    this.spawnEnemy();
+},
+updateEnemyUI() {
+    if (!this.currentEnemy) return;
+
+    const hpPercent = (this.currentEnemy.hp / this.currentEnemy.maxHp) * 100;
+
+    document.getElementById("enemy-img").src = this.currentEnemy.img;
+
+    document.getElementById("enemy-name").innerText =
+        `${this.currentEnemy.name} (Zona ${this.zona})`;
+
+    document.getElementById("enemy-hp").innerText =
+        `${this.currentEnemy.hp} / ${this.currentEnemy.maxHp}`;
+
+    document.getElementById("health-fill").style.width =
+        hpPercent + "%";
+},
     doAscension() {
         if (this.clicks < this.getAscensionRequirement()) return;
         
@@ -164,15 +240,23 @@ const game = {
 
     patchNotes: [
         new Patch("Lançamento", "01/04/2026", "Versão inicial do jogo."),
-        new Patch("Ascensão", "02/04/2026", "Sistema de ascensão adicionado.")
+        new Patch("Ascensão", "02/04/2026", "Sistema de ascensão adicionado."),
+        new Patch("Viusal 'Melhorado'", "04/04/2026", "Madruguei :P")
     ],
 
     click(e) {
-    this.clicks += this.clickPower;
+    if (!this.currentEnemy) return;
+
+    this.currentEnemy.hp -= this.clickPower;
     this.totalClicks += this.clickPower;
 
-    spawnParticle(e.clientX, e.clientY, false); // normal
+    spawnParticle(e.clientX, e.clientY, false);
 
+    if (this.currentEnemy.hp <= 0) {
+        this.killEnemy();
+    }
+
+    this.updateEnemyUI();
     this.checkConquistas();
     this.update();
     saveGame();
@@ -209,7 +293,9 @@ const game = {
         <div class="stats-box">
             <p><b>Cliques Totais:</b> ${this.totalClicks.toLocaleString()}</p>
             <p><b>Ascensões Totais:</b> ${this.totalAscensions}</p>
+            <p><b>Inimigos Mortos:</b> ${this.totalEnemiesKilled}</p>
             <p><b>Tempo de Jogo:</b> ${formatTime(this.playTime)}</p>
+           
         </div>
     `;
 },
@@ -316,17 +402,23 @@ function spawnParticle(x, y, isGray = false) {
 }
 // ================= ABAS =================
 function showTab(tabId) {
-    const main = document.getElementById('main-content');
+    const main = document.querySelector('.main-container');
+    const center = document.getElementById('center-content');
 
-    main.classList.add('blur-effect');
+    // efeito de blur 
+    if (main) main.classList.add('blur-effect');
 
     setTimeout(() => {
-        document.querySelectorAll('.content-section').forEach(s => {
-            s.classList.remove('active');
+        // esconde todas as abas
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
         });
 
-        document.getElementById(tabId)?.classList.add('active');
+        // mostra a aba clicada
+        const target = document.getElementById(tabId);
+        if (target) target.classList.add('active');
 
+        // atualiza botão ativo
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.classList.remove('active');
         });
@@ -334,14 +426,35 @@ function showTab(tabId) {
         const activeBtn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
         if (activeBtn) activeBtn.classList.add('active');
 
-        setTimeout(() => main.classList.remove('blur-effect'), 150);
+        // controle do fundo 
+        if (center) {
+            if (tabId === "clicker") {
+                center.classList.add("bg-active");
+            } else {
+                center.classList.remove("bg-active");
+            }
+        }
+
+        if (main) {
+            setTimeout(() => main.classList.remove('blur-effect'), 150);
+        }
     }, 150);
 }
-
 // ================= AUTO =================
 setInterval(() => {
-    if (game.autoClicks > 0) {
-        game.clicks += game.autoClicks;
+    if (game.autoClicks > 0 && game.currentEnemy) {
+
+        game.currentEnemy.hp -= game.autoClicks;
+
+        // trava HP mínimo
+        game.currentEnemy.hp = Math.max(0, game.currentEnemy.hp);
+
+        // morreu KKKKK
+        if (game.currentEnemy.hp <= 0) {
+            game.killEnemy();
+        }
+
+        game.updateEnemyUI();
         game.update();
         saveGame();
     }
@@ -358,6 +471,7 @@ function saveGame() {
         playTime: game.playTime,
         ascensionPoints: game.ascensionPoints,
         ascensionLevel: game.ascensionLevel,
+        bonus: game.bonus,
         upgrades: game.upgrades.map(u => ({
             id: u.id,
             owned: u.owned,
@@ -382,15 +496,59 @@ function loadGame() {
     game.playTime = data.playTime || 0;
     game.ascensionPoints = data.ascensionPoints;
     game.ascensionLevel = data.ascensionLevel;
+    
+       data.upgrades.forEach(saved => {
+        const up = game.upgrades.find(u => u.id === saved.id);
 
-    data.upgrades.forEach(d => {
-        const u = game.upgrades.find(x => x.id === d.id);
-        if (u) {
-            u.owned = d.owned;
-            u.unlocked = d.unlocked;
+        if (up) {
+            up.owned = saved.owned;
+            up.unlocked = saved.unlocked;
+
+            up.cost = Math.floor(up.baseCost * Math.pow(1.5, up.owned));
+
+            game.clickPower += up.powerInc * up.owned;
+            game.autoClicks += up.autoInc * up.owned;
         }
+        if (data.bonus) {
+    game.bonus = {
+        clickPowerMult: data.bonus.clickPowerMult ?? 1,
+        clickMult: data.bonus.clickMult ?? 1,
+        powerMult: data.bonus.powerMult ?? 1
+    };
+}
     });
+    
+function showTab(tabId) {
+    const main = document.getElementById('main-content');
+    const center = document.getElementById('center-content'); 
 
+    main.classList.add('blur-effect');
+
+    setTimeout(() => {
+    
+        document.querySelectorAll('.content-section').forEach(s => {
+            s.classList.remove('active');
+        });
+
+        document.getElementById(tabId)?.classList.add('active');
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        const activeBtn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        // CONTROLE DO FUNDO
+        if (tabId === "clicker") {
+            center.classList.add("bg-active");
+        } else {
+            center.classList.remove("bg-active");
+        }
+
+        setTimeout(() => main.classList.remove('blur-effect'), 150);
+    }, 150);
+}
     data.conquistas.forEach(d => {
         const c = game.conquistas.find(x => x.name === d.name);
         if (c) c.hide = d.hide;
@@ -438,7 +596,6 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("click", (e) => {
     const target = e.target;
 
-    // elementos que NÃO devem gerar partícula cinza
     const isInteractive =
         target.closest(".click-img") ||
         target.closest(".upgrade-card") ||
@@ -468,6 +625,7 @@ setInterval(() => {
 
 let audioStarted = false;
 
+
 document.addEventListener("click", () => {
     if (!audioStarted) {
         const bg = document.getElementById("bg-music");
@@ -475,4 +633,26 @@ document.addEventListener("click", () => {
         bg.play();
         audioStarted = true;
     }
+});
+
+let enemyData = {};
+
+async function loadEnemies() {
+    try {
+        const res = await fetch("enemies.json");
+        enemyData = await res.json();
+
+        console.log("Enemies carregados:", enemyData); // debug
+    } catch (err) {
+        console.error("Erro ao carregar enemies.json:", err);
+    }
+} 
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadEnemies(); 
+    loadGame();
+
+    game.spawnEnemy(); 
+
+    game.update();
 });

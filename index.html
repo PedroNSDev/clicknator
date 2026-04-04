@@ -7,50 +7,53 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <audio id="bg-music" src="bg.mp3" loop></audio>
-  <audio id="click-sound" src="click.mp3"></audio>
-  <audio id="buy-sound" src="buy.mp3"></audio>
-    <nav class="sidebar">
-        <div class="logo">CLICKNATOR</div>
 
-        <button class="nav-btn active" data-tab="clicker" onclick="showTab('clicker')">Principal</button>
-        <button class="nav-btn" data-tab="loja" onclick="showTab('loja')">Loja</button>
-        <button class="nav-btn" data-tab="rebirth" onclick="showTab('rebirth')">Ascensão</button>
-        <button class="nav-btn" data-tab="conquistas" onclick="showTab('conquistas')">Conquistas</button>
-        <button class="nav-btn" data-tab="patch-notes" onclick="showTab('patch-notes')">Notas</button>
-        <button class="nav-btn" data-tab="save-load" onclick="showTab('save-load')">Salvar/Carregar</button>
-        <button class="nav-btn" data-tab="stats" onclick="showTab('stats')">Estatísticas</button>
-    </nav>
+<audio id="bg-music" src="bg.mp3" loop></audio>
+<audio id="click-sound" src="click.mp3"></audio>
+<audio id="buy-sound" src="buy.mp3"></audio>
 
-    <main class="main-container" id="main-content">
+<!-- MENU ESQUERDA -->
+<nav class="sidebar">
+    <div class="logo">Nah>:P</div>
+
+    <button class="nav-btn active" data-tab="clicker" onclick="showTab('clicker')">Principal</button>
+    <button class="nav-btn" data-tab="rebirth" onclick="showTab('rebirth')">Ascensão</button>
+    <button class="nav-btn" data-tab="conquistas" onclick="showTab('conquistas')">Conquistas</button>
+    <button class="nav-btn" data-tab="patch-notes" onclick="showTab('patch-notes')">Notas</button>
+    <button class="nav-btn" data-tab="stats" onclick="showTab('stats')">Estatísticas</button>
+</nav>
+
+<!-- CONTAINER PRINCIPAL -->
+<main class="main-container">
+
+    <!-- CENTRO (ONDE FICA O JOGO + FUNDO) -->
+    <div class="center-content" id="center-content">
 
         <!-- CLICKER -->
         <section id="clicker" class="content-section active">
             <div id="counter">0</div>
             <div id="stats-bar">Poder: 1 | Auto: 0/s</div>
-            <div id="rebirth-mult">Multiplicador: x1</div>
+
+            <div class="enemy-ui">
+                <div id="enemy-name" class="enemy-name"></div>
+
+                <div class="health-bar">
+                    <div id="health-fill" class="health-fill"></div>
+                </div>
+
+                <div id="enemy-hp" class="enemy-hp"></div>
+            </div>
 
             <div class="click-area">
-                <img 
-                    src="glabidle.png" 
-                    id="main-click" 
-                    class="click-img"
-                    onclick="game.click(event)"
-                >
+                <img id="enemy-img" class="click-img" onclick="game.click(event)">
             </div>
-        </section>
-
-        <!-- LOJA -->
-        <section id="loja" class="content-section">
-            <h2 class="shop-title">Upgrades</h2>
-            <div class="upgrades-grid" id="shop"></div>
         </section>
 
         <!-- ASCENSÃO -->
         <section id="rebirth" class="content-section">
             <h2>Ascensão</h2>
             <p>Reinicie e ganhe bônus permanente.</p>
-
+            <div id="rebirth-mult">Multiplicador: x1</div>
             <div id="rebirth-info"></div>
             <div id="rebirth-btn"></div>
         </section>
@@ -66,20 +69,23 @@
             <h2>Notas de Atualização</h2>
         </section>
 
-      
-        <section id="save-load" class="content-section">
-            <h2>Salvar / Carregar</h2>
-            <div id="save-btn"></div>
-        </section>
-
         <!-- STATS -->
         <section id="stats" class="content-section">
             <h2>Estatísticas</h2>
-            <p>Seu Progresso.</p>
+            <p>Seu progresso.</p>
         </section>
 
-    </main>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- LOJA FIXA DIREITA -->
+    <div class="shop-side">
+        <h3>Upgrades</h3>
+        <div id="shop"></div>
+    </div>
+
+</main>
+
+<script src="script.js"></script>
+
 </body>
 </html>

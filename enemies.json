@@ -1,0 +1,18 @@
+{
+  "tiers": [
+    {
+      "minZona": 1,
+      "enemies": [
+        { "name": "CherryCherry", "hp": 20, "reward": 10, "img": "inimigos/Cherry.gif" },
+        { "name": "BonBon", "hp": 30, "reward": 20, "img": "inimigos/BonBon.gif" },
+        { "name": "BuggyBoo", "hp": 30, "reward": 20, "img": "inimigos/BuggyBoohCave.gif" }
+      ]
+    },
+    {
+      "minZona": 10,
+      "enemies": [
+        { "name": "Saparalho", "hp": 75, "reward": 20, "img": "inimigos/Saparalho.gif" }
+      ]
+    }
+  ]
+}

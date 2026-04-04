@@ -1,9 +1,9 @@
 :root {
-    --bg: #0f172a;
-    --side: #020617;
-    --accent: #38bdf8;
-    --gold: #fbbf24;
-    --green: #22c55e;
+    --bg: #ffffff;
+    --side: #888888;
+    --accent: #bbbbbb;
+    --gold: #000000;
+    --green: #98a99e;
 }
 
 * {
@@ -60,8 +60,8 @@ body {
 
 /* MAIN CONTAINER & BLUR */
 .main-container {
+    display: flex;
     flex: 1;
-    position: relative;
     transition: filter 0.3s ease;
 }
 
@@ -194,7 +194,7 @@ body {
     background: var(--gold);
     color: black;
 }
-/* CONQUISTAS HORIZONTAL */
+
 .conquista {
     display: flex;
     align-items: center;
@@ -246,4 +246,112 @@ body {
     cursor: pointer;
     transition: transform 0.08s ease;
     user-select: none;
+}
+
+.enemy-ui {
+    width: 300px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.enemy-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--accent);
+}
+
+.health-bar {
+    width: 100%;
+    height: 18px;
+    background: #1e293b;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #334155;
+}
+
+.health-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+    transition: width 0.2s ease;
+}
+
+.enemy-hp {
+    font-size: 0.85rem;
+    margin-top: 4px;
+    color: #94a3b8;
+}
+
+
+.game-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.game-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*LOJAAAAAAAAAAAAAA */
+.shop-side {
+    width: 300px;
+    background: #020617;
+    border-left: 1px solid #1e293b;
+    padding: 15px;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+
+#shop {
+    overflow-y: auto;
+    flex: 1;
+
+    margin-top: 10px;
+}
+
+#shop::-webkit-scrollbar {
+    width: 6px;
+}
+
+#shop::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 10px;
+}
+/* área central Inimigus */
+.center-content {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* background isolado */
+.center-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image: url("tunel.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: brightness(0.4); 
+    
+    z-index: 0;
+}
+
+.center-content > * {
+    position: relative;
+    z-index: 1;
+}
+
+.content-section {
+    background: transparent;
 }
