@@ -6,6 +6,7 @@
     <title>Clicknator Pro</title>
     <link rel="stylesheet" href="style.css">
 
+    <!-- Google AdSense -->
     <script data-ad-client="ca-pub-1194290959028721" async 
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
@@ -27,33 +28,47 @@
 
 <main class="main-container">
 
+    <!-- Conteúdo central do jogo -->
     <div class="center-content" id="center-content">
-    
+
+        <!-- Aba Clicker -->
         <section id="clicker" class="content-section active">
             <div id="counter">0</div>
             <div id="stats-bar">Poder: 1 | Auto: 0/s</div>
 
             <div class="enemy-container">
                 <img id="enemy-img" class="enemy-sprite" onclick="game.click(event)">
-                
                 <img src="Assets/Moldura.gif" class="enemy-frame">
             </div>
 
             <div class="enemy-ui">
                 <div id="enemy-name" class="enemy-name"></div>
-
                 <div class="health-bar">
                     <div id="health-fill" class="health-fill"></div>
                 </div>
-
                 <div id="enemy-hp" class="enemy-hp"></div>
             </div>
 
             <p style="margin-top: 20px; font-size: 0.8rem; color: #94a3b8;">
                 Derrote inimigos, compre upgrades e avance nas zonas!
             </p>
+
+            <!-- Anúncio Google integrado -->
+            <div style="margin: 20px 0; text-align:center;">
+                <ins class="adsbygoogle"
+                     style="display:block; text-align:center;"
+                     data-ad-client="ca-pub-1194290959028721"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
         </section>
 
+        <!-- Aba Ascensão -->
         <section id="rebirth" class="content-section">
             <h2>Ascensão</h2>
             <p>Reinicie e ganhe bônus permanente.</p>
@@ -70,7 +85,6 @@
         <section id="patch-notes" class="content-section">
             <h2>Notas de Atualização</h2>
         </section>
-
         <section id="stats" class="content-section">
             <h2>Estatísticas</h2>
             <p>Seu progresso.</p>
@@ -84,18 +98,6 @@
     </div>
 
 </main>
-
-<div style="text-align:center; margin: 10px 0;">
-    <ins class="adsbygoogle"
-         style="display:block; text-align:center;"
-         data-ad-client="ca-pub-1194290959028721"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
 
 <script src="script.js"></script>
 
