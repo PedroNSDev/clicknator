@@ -5,13 +5,28 @@
       "enemies": [
         { "name": "CherryCherry", "hp": 20, "reward": 10, "img": "inimigos/Cherry.gif" },
         { "name": "BonBon", "hp": 30, "reward": 20, "img": "inimigos/BonBon.gif" },
-        { "name": "BuggyBoo", "hp": 30, "reward": 20, "img": "inimigos/BuggyBoohCave.gif" }
+        { "name": "BuggyBoo", "hp": 15, "reward": 10, "img": "inimigos/BuggyBoohCave.gif" }
       ]
     },
     {
       "minZona": 10,
       "enemies": [
-        { "name": "Saparalho", "hp": 75, "reward": 20, "img": "inimigos/Saparalho.gif" }
+        { "name": "DripEye", "hp": 40, "reward": 30, "img": "inimigos/OlhoDrip2.gif" },
+        { "name": "CaterPillar", "hp": 50, "reward": 40, "img": "inimigos/CaterPillar.gif" },
+        { "name": "Zangado>:V", "hp": 40, "reward": 30, "img": "inimigos/Zangado (1).gif" }
+      ]
+    },
+    {
+      "minZona": 20,
+      "enemies": [
+        { "name": "Saparalho", "hp": 75, "reward": 60, "img": "inimigos/Saparalho.gif" },
+        { "name": "MageHog", "hp": 90, "reward": 80, "img": "inimigos/MageHog.gif" }
+      ]
+    },
+        {
+      "minZona": 40,
+      "enemies": [
+        { "name": "??", "hp": 100, "reward": 100, "img": "inimigos/doubleTroubleDefinitive.gif" }
       ]
     }
   ]

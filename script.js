@@ -161,7 +161,7 @@ const game = {
 },
 
 killEnemy() {
-    this.clicks += this.currentEnemy.reward * this.bonus.ClickMult;
+    this.clicks += this.currentEnemy.reward;
     this.totalEnemiesKilled++;
     this.zona++;
 
@@ -271,9 +271,9 @@ updateEnemyUI() {
     },
 
     update() {
-        document.getElementById('counter').innerText = Math.floor(this.clicks);
+        document.getElementById('counter').innerText = Math.floor(this.clicks).toLocaleString('pt-BR');
         document.getElementById('stats-bar').innerText =
-            `Poder: ${this.clickPower} | Auto: ${this.autoClicks}/s`;
+            `Poder: ${this.clickPower} | : ${this.autoClicks}/s`;
 
         document.getElementById('rebirth-mult').innerText =
             `Ascensão: ${this.ascensionPoints}`;
@@ -566,31 +566,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ===== LOAD DO JOGO =====
     loadGame();
     game.update();
-   
 
-    // ===== IMAGEM DE CLIQUE =====
-    const clickImg = document.getElementById("main-click");
-
-    if (clickImg) {
-        clickImg.addEventListener("mouseenter", () => {
-            clickImg.src = "glabmedo.png";
-        });
-
-        clickImg.addEventListener("mouseleave", () => {
-            clickImg.src = "glabidle.png";
-            clickImg.style.transform = "scale(1)";
-        });
-
-        clickImg.addEventListener("mousedown", () => {
-            clickImg.src = "glabclique.png";
-            clickImg.style.transform = "scale(0.85)";
-        });
-
-        clickImg.addEventListener("mouseup", () => {
-            clickImg.src = "glabmedo.png";
-            clickImg.style.transform = "scale(1)";
-        });
-    }
 });
 
 document.addEventListener("click", (e) => {

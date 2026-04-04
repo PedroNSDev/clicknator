@@ -86,7 +86,7 @@ body {
     font-size: 64px;
     font-weight: 800;
     color: var(--gold);
-    text-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 #stats-bar {
@@ -126,13 +126,13 @@ body {
 }
 
 .upgrade-card {
-    background: #1e293b;
+    background: #28292a;
     padding: 15px;
     border-radius: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #334155;
+    border: 1px solid #1d1e20;
     cursor: pointer;
 }
 
@@ -300,8 +300,8 @@ body {
 /*LOJAAAAAAAAAAAAAA */
 .shop-side {
     width: 300px;
-    background: #020617;
-    border-left: 1px solid #1e293b;
+    background: #2f2d2d;
+    border-left: 1px solid #303234;
     padding: 15px;
     
     display: flex;
@@ -321,7 +321,7 @@ body {
 }
 
 #shop::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: #55585b;
     border-radius: 10px;
 }
 /* área central Inimigus */
