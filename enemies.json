@@ -42,7 +42,13 @@
     {
       "minZona": 60,
       "enemies": [
-        { "name": "??", "hp": 200, "reward": 220, "img": "inimigos/doubleTroubleDefinitive.gif" }
+        { "name": "Milto e Sergio", "hp": 200, "reward": 220, "img": "inimigos/doubleTroubleDefinitive.gif" }
+      ]
+    },
+    {
+      "minZona": 70,
+      "enemies": [
+        { "name": "...", "hp": 200, "reward": 220, "img": "inimigos/Template3.gif" }
       ]
     }
   ]
