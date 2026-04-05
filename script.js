@@ -220,11 +220,14 @@ updateEnemyUI() {
 
     upgrades: [
         new Upgrade('u1', 'Graveto', '+1 de poder', 10, 1, 0, "Upgrades/Graveto.gif"),
-        new Upgrade('u2', '🤖 Robô', '+1/s', 50, 0, 1,"Tomate.png"),
-        new Upgrade('u3', '⚡ Mouse', '+5 clique', 200, 5, 0, "Tomate.png"),
-        new Upgrade('u4', '🏭 Fábrica', '+10/s', 1000, 0, 10, "Tomate.png"),
-        new Upgrade('u5', '🚀 Portal', '+100/s', 10000, 0, 100, "Tomate.png"),
-        new Upgrade('u6', '⚡🤖💪 Mega Portal', '+200/s', 20000, 0, 200, "Tomate.png")
+        new Upgrade('u2', 'Jão', '+1/s', 50, 0, 1,"joes/joao.gif"),
+        new Upgrade('u3', 'Espada', '+5 de poder', 200, 5, 0, "Upgrades/Espada.gif"),
+        new Upgrade('u4', 'Jão Gorro', '+50/s', 1000, 0, 50, "joes/JaoGorro.gif"),
+        new Upgrade('u5', 'Jão Chapeu', '+100/s', 5000, 0, 100, "joes/Joao_chapeu.gif"),
+        new Upgrade('u6', 'Jão Mineiro', '+200/s', 10000, 0, 200, "joes/Joao_mineiro2.gif"),
+        new Upgrade('u7', 'Jão Vaqueiro', '+600/s', 20000, 0, 600, "joes/joao_vaqueiro.gif"),
+        new Upgrade('u8', 'Jão Alien', '+1500/s', 50000, 0, 1500, "joes/Joao_alien.gif"),
+        new Upgrade('u9', 'Soares', 'ele sabe oq você fez no verão passado...', 200000, 0, 5000, "joes/JoaoSabe.gif")
     ],
 
     ascensionUpgrades: [
