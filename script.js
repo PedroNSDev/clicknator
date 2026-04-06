@@ -261,9 +261,18 @@ updateEnemyUI() {
 ],
     conquistas: [
         new Conquista("Primeiro Clique", "Tomate.png", "Você clicou!", true),
-        new Conquista("100 Cliques", "Tomate.png", "Clique 100x", true),
-        new Conquista("1000 Cliques", "Tomate.png", "Clique 1000x", true),
-        new Conquista("Automação", "Tomate.png", "Compre upgrades", true),
+        new Conquista("100 Cliques", "conquistas/Forca1.gif", "Clique 100x", true),
+        new Conquista("1000 Cliques", "conquistas/Forca2.gif", "Clique 1000x", true),
+        new Conquista("Automação", "Tomate.png", "Compre 1 upgrade ", true),
+        new Conquista("Zona 10", "Tomate.png", "Alcance a zona 10", true),
+        new Conquista("Zona 20", "Tomate.png", "Alcance a zona 20", true),
+        new Conquista("Zona 30", "Tomate.png", "Alcance a zona 30", true),
+        new Conquista("Zona 40", "Tomate.png", "Alcance a zona 40", true),
+        new Conquista("Ascensão", "Tomate.png", "Faça sua primeira ascensão", true),
+        new Conquista("Jão", "conquistas/JoaoConquista.gif", "Compre seu primeiro Jão", true),
+        new Conquista("Jão Jão","conquistas/JoaoConquista2.gif ", "Tenha 50 Jãos", true),
+        new Conquista("Jão Jão?", "conquistas/JoaoConquista3.gif", "Tenha 100 Jãos", true)
+
         
     ],
 
