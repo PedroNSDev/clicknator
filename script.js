@@ -228,7 +228,8 @@ updateEnemyUI() {
         new Upgrade('u6', 'Jão Mineiro', '+200/s', 10000, 0, 200, "joes/Joao_mineiro2.gif"),
         new Upgrade('u7', 'Jão Vaqueiro', '+600/s', 20000, 0, 600, "joes/Joao_vaqueiro.gif"),
         new Upgrade('u8', 'Jão Alien', '+1500/s', 50000, 0, 1500, "joes/Joao_alien.gif"),
-        new Upgrade('u9', 'Soares', 'ele sabe oq você fez no verão passado...', 200000, 0, 5000, "joes/JoaoSabe.gif")
+        new Upgrade('u9', 'Soares', 'ele sabe oq você fez no verão passado...', 200000, 0, 5000, "joes/JoaoSabe.gif"),
+        new Upgrade('u10', 'Jão cão', 'Ama Rock', 500000, 0, 15000, "joes/Jao cao.gif")
     ],
 
     ascensionUpgrades: [
@@ -496,6 +497,7 @@ function saveGame() {
         zona: game.zona,
         totalClicks: game.totalClicks,
         totalAscensions: game.totalAscensions,
+        totalEnemiesKilled: game.totalEnemiesKilled,
         playTime: game.playTime,
         ascensionPoints: game.ascensionPoints,
         ascensionLevel: game.ascensionLevel,
@@ -522,6 +524,7 @@ function loadGame() {
     game.autoClicks = data.autoClicks;
     game.totalClicks = data.totalClicks || 0;
     game.totalAscensions = data.totalAscensions || 0;
+    game.totalEnemiesKilled = data.totalEnemiesKilled || 0;
     game.playTime = data.playTime || 0;
     game.ascensionPoints = data.ascensionPoints;
     game.ascensionLevel = data.ascensionLevel;
