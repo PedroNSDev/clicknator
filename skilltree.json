@@ -1,0 +1,53 @@
+[
+  {
+    "id": "root",
+    "name": "Força I",
+    "desc": "+ 5 de Poder por click",
+    "cost": 1,
+    "x": 1,
+    "y": 0,
+    "parent": null,
+    "power": 5,
+    "auto": 0,
+    "bonus": 0,
+    "img": "assets/skills/Forca1.gif"
+  },
+  {
+    "id": "p1",
+    "name": "Força II",
+    "desc": "+25 poder por click",
+    "cost": 5,
+    "x": 2,
+    "y": 0,
+    "parent": "root",
+    "power": 25,
+    "auto": 0,
+    "img": "assets/skills/Forca2.gif"
+  },
+  {
+   "id": "b0",
+    "name": "Jão I",
+    "desc": "+1 % de Bonus aos Jãos",
+    "cost": 7,
+    "x": 1,
+    "y": 2,
+    "power": 0,
+    "auto": 0,
+    "bonus": 1,
+    "img": "assets/skills/JoaoConquista.gif"
+},
+{
+   "id": "b1",
+    "name": "Jão II",
+    "desc": "+10 % de Bonus aos Jãos",
+    "cost": 7,
+    "x": 2,
+    "y": 2,
+    "parent": "b0",
+    "power": 25,
+    "auto": 0,
+    "bonus": 10,
+    "img": "assets/skills/JoaoConquista2.gif"
+}
+]    
+

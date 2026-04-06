@@ -276,17 +276,10 @@ body {
 }
 #rebirth-mult {
     margin-top: 10px;
-    color: var(--accent);
+    color: var(--white);
     font-weight: bold;
 }
 
-#rebirth-info {
-    margin: 20px 0;
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-}
 
 .btn {
     padding: 15px 25px;
@@ -545,4 +538,51 @@ body {
 
 .content-section {
     background: transparent;
+}
+
+.skill-node img {
+    width: 64px;
+    height: 64px;
+    border: 2px solid #555;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.skill-node.locked img {
+    filter: grayscale(100%) brightness(0.5);
+    opacity: 0.6;
+}
+
+.skill-node.available img {
+    filter: none;
+    border-color: white;
+}
+
+.skill-node.bought img {
+    filter: none;
+    border-color: gold;
+    box-shadow: 0 0 10px gold;
+}
+.skill-tree {
+    left: 0;
+    overflow: auto;
+    display: -ms-grid;
+    max-width: 100%;
+    grid-template-columns: repeat(20, 80px); 
+    grid-auto-rows: 80px;
+    gap: 20px;
+    justify-content: start;
+    align-items: center;
+}
+
+#rebirth-info {
+    margin: 25px 0;
+    left: 0;
+    background-image: url(container.gif);
+    padding: 20px;
+    border-radius: 12px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    max-width: 20%;
 }
