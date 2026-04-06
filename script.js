@@ -281,7 +281,8 @@ updateEnemyUI() {
         new Patch("Ascensão", "02/04/2026", "Sistema de ascensão adicionado."),
         new Patch("Viusal 'Melhorado'", "04/04/2026", "Madruguei :P"),
         new Patch("Mais inimigos e rework de zonas", "04/04/2026", ">:V"),
-        new Patch("Melhor Visual + INIMIGOS", "04/04/2026", "(Te Amo Luis <3)")
+        new Patch("Melhor Visual + INIMIGOS", "04/04/2026", "(Te Amo Luis <3)"),
+        new Patch("Visual Melhor + 5 Inimigos", "05/04/2025", "Sungan >:P")
     ],
 
     click(e) {
