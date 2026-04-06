@@ -65,14 +65,12 @@ body {
     z-index: 100;
 }
 
-.logo {
-    font-weight: 800;
-    color: var(--accent);
-    margin-bottom: 30px;
-    font-size: 1.5rem;
-    text-align: center;
-}
 
+.logo img {
+    max-width: 100%; 
+    height: auto;    
+    margin: 0 auto;   
+}
 .nav-btn {
     background-image: url("container.gif");
     background-size: 100% 100%;
