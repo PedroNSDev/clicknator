@@ -10,7 +10,7 @@
     "power": 5,
     "auto": 0,
     "bonus": 0,
-    "img": "assets/skills/Forca1.gif"
+    "img": "Assets/skills/Forca1.gif"
   },
   {
     "id": "p1",
@@ -22,7 +22,7 @@
     "parent": "root",
     "power": 25,
     "auto": 0,
-    "img": "assets/skills/Forca2.gif"
+    "img": "Assets/skills/Forca2.gif"
   },
   {
    "id": "b0",
@@ -34,7 +34,7 @@
     "power": 0,
     "auto": 0,
     "bonus": 1,
-    "img": "assets/skills/JoaoConquista.gif"
+    "img": "Assets/skills/JoaoConquista.gif"
 },
 {
    "id": "b1",
@@ -47,7 +47,7 @@
     "power": 25,
     "auto": 0,
     "bonus": 10,
-    "img": "assets/skills/JoaoConquista2.gif"
+    "img": "Assets/skills/JoaoConquista2.gif"
 }
 ]    
 
