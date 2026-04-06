@@ -13,22 +13,22 @@ class Upgrade {
         this.img = img; 
     }
 
-    buy() {
-        if (game.clicks >= this.cost) {
-            game.clicks -= this.cost;
-            this.owned++;
-            this.unlocked = true;
+   buy() {
+    if (game.clicks >= this.cost) {
+        game.clicks -= this.cost;
+        this.owned++;
+        this.unlocked = true;
 
-            game.clickPower += this.powerInc;
-            game.autoClicks += this.autoInc;
+        game.clickPower += this.powerInc;
+        game.autoClicks += this.autoInc;
 
-            this.cost = Math.floor(this.baseCost * Math.pow(1.5, this.owned));
-            game.update();
-            saveGame();
-        }
+        this.cost = Math.floor(this.baseCost * Math.pow(1.1, this.owned));
+
+        game.update();
+        saveGame();
     }
 }
-
+}
 class AscensionUpgrade {
     constructor(id, name, desc, cost, effect) {
         this.id = id;
@@ -49,7 +49,6 @@ class AscensionUpgrade {
         }
     }
 }
-
 class Conquista {
     constructor(name, icon, desc, hide = true) {
         this.name = name;
@@ -208,6 +207,8 @@ updateEnemyUI() {
         this.clicks = 0;
         this.clickPower = 1;
         this.autoClicks = 0;
+        this.zona = 1;
+        this.dif = 1;
 
         this.upgrades.forEach(u => {
             u.owned = 0;
@@ -331,7 +332,7 @@ updateEnemyUI() {
    renderShop() {
     const shop = document.getElementById('shop');
     shop.innerHTML = "";
-    shop.classList.add("upgrades-grid"); // garante o grid
+    shop.classList.add("upgrades-grid"); // garante o grid -=-
 
     this.upgrades.forEach(u => {
         const visible = u.unlocked || this.clicks >= u.cost * 0.75;
@@ -346,9 +347,9 @@ updateEnemyUI() {
                 <img src="${u.img || 'placeholder.png'}" alt="${u.name}">
             </div>
             <div class="upgrade-text">
-                <h3>${u.name}</h3>
-                <p>${u.desc}</p>
-                <small>Qtd: ${u.owned} | Preço: ${u.cost.toLocaleString('pt-BR')}</small>
+                <p>${u.name}</p>
+                <small>${u.desc}</small>
+                <p>Qtd: ${u.owned} | Preço: ${u.cost.toLocaleString('pt-BR')}</p>
             </div>
         `;
 
@@ -439,16 +440,13 @@ function showTab(tabId) {
     if (main) main.classList.add('blur-effect');
 
     setTimeout(() => {
-        // esconde todas as abas
         document.querySelectorAll('.content-section').forEach(section => {
             section.classList.remove('active');
         });
 
-        // mostra a aba clicada
         const target = document.getElementById(tabId);
         if (target) target.classList.add('active');
 
-        // atualiza botão ativo
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.classList.remove('active');
         });
@@ -456,7 +454,6 @@ function showTab(tabId) {
         const activeBtn = document.querySelector(`.nav-btn[data-tab="${tabId}"]`);
         if (activeBtn) activeBtn.classList.add('active');
 
-        // controle do fundo 
         if (center) {
             if (tabId === "clicker") {
                 center.classList.add("bg-active");
@@ -496,6 +493,7 @@ function saveGame() {
         clicks: game.clicks,
         clickPower: game.clickPower,
         autoClicks: game.autoClicks,
+        zona: game.zona,
         totalClicks: game.totalClicks,
         totalAscensions: game.totalAscensions,
         playTime: game.playTime,
@@ -520,6 +518,7 @@ function loadGame() {
 
     game.clicks = data.clicks;
     game.clickPower = data.clickPower;
+    game.zona = data.zona || 1;
     game.autoClicks = data.autoClicks;
     game.totalClicks = data.totalClicks || 0;
     game.totalAscensions = data.totalAscensions || 0;
@@ -533,9 +532,7 @@ function loadGame() {
         if (up) {
             up.owned = saved.owned;
             up.unlocked = saved.unlocked;
-
-            up.cost = Math.floor(up.baseCost * Math.pow(1.5, up.owned));
-
+            up.cost = Math.floor(up.baseCost * Math.pow(1.1, up.owned));
             game.clickPower += up.powerInc * up.owned;
             game.autoClicks += up.autoInc * up.owned;
         }
