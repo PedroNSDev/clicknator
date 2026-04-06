@@ -1,0 +1,60 @@
+[
+  {
+    "id": "click1",
+    "nome": "Primeiro Clique",
+    "desc": "Você clicou!",
+    "img": "conquistas/Forca0.gif",
+    "condicao": { "tipo": "clicks", "valor": 1 }
+  },
+  {
+    "id": "click100",
+    "nome": "100 Cliques",
+    "desc": "Clique 100x",
+    "img": "conquistas/Forca1.gif",
+    "condicao": { "tipo": "clicks", "valor": 100 }
+  },
+  {
+    "id": "upgrades5",
+    "nome": "Automação",
+    "desc": "Compre 5 upgrades",
+    "img": "Tomate.png",
+    "condicao": { "tipo": "totalUpgrades", "valor": 5 }
+  },
+
+  {
+    "id": "zone20",
+    "nome": "Zona 20",
+    "desc": "Alcance a zona 20",
+    "img": "Tomate.png",
+    "condicao": { "tipo": "zona", "valor": 20 }
+  },
+  {
+    "id": "ascension1",
+    "nome": "Ascensão",
+    "desc": "Faça sua primeira ascensão",
+    "img": "conquistas/Forca3.gif",
+    "condicao": { "tipo": "ascensoes", "valor": 1 }
+  },
+  {
+    "id": "jao1",
+    "nome": "Jão",
+    "desc": "Compre seu primeiro Jão",
+    "img": "conquistas/JoaoConquista.gif",
+    "condicao": { "tipo": "jaos", "valor": 1 }
+  },
+  {
+    "id": "jao50",
+    "nome": "Jão Jão",
+    "desc": "Tenha 50 Jãos",
+    "img": "conquistas/JoaoConquista2.gif ",
+    "condicao": { "tipo": "jaos", "valor": 50 }
+  },
+  {
+    "id": "jao100",
+    "nome": "Jão Jão?",
+    "desc": "Tenha 100 Jãos",
+    "img": "conquistas/JoaoConquista3.gif ",
+    "condicao": { "tipo": "jaos", "valor": 100 }
+  }
+
+]

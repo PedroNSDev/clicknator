@@ -219,6 +219,7 @@ updateEnemyUI() {
         saveGame();
     },
 
+    
     upgrades: [
         new Upgrade('u1', 'Graveto', '+1 de poder', 10, 1, 0, "Upgrades/Graveto.gif"),
         new Upgrade('u2', 'Jão', '+1/s', 50, 0, 1,"joes/joao.gif"),
@@ -260,7 +261,7 @@ updateEnemyUI() {
     )
 ],
     conquistas: [
-        new Conquista("Primeiro Clique", "Tomate.png", "Você clicou!", true),
+        new Conquista("Primeiro Clique", "conaquistas/Forca0.gif", "Você clicou!", true),
         new Conquista("100 Cliques", "conquistas/Forca1.gif", "Clique 100x", true),
         new Conquista("1000 Cliques", "conquistas/Forca2.gif", "Clique 1000x", true),
         new Conquista("Automação", "Tomate.png", "Compre 1 upgrade ", true),
@@ -306,7 +307,6 @@ updateEnemyUI() {
         if (this.clicks >= 1) this.conquistas[0].hide = false;
         if (this.clicks >= 100) this.conquistas[1].hide = false;
         if (this.clicks >= 1000) this.conquistas[2].hide = false;
-
         const totalUp = this.upgrades.reduce((s, u) => s + u.owned, 0);
         if (totalUp >= 5) this.conquistas[3].hide = false;
     },
@@ -392,6 +392,7 @@ updateEnemyUI() {
         info.appendChild(el);
     });
 },
+
     renderConquistas() {
         const container = document.getElementById("conquistas");
         container.innerHTML = `<h2>Conquistas</h2>`;
@@ -502,8 +503,6 @@ setInterval(() => {
 function saveGame() {
     localStorage.setItem('save', JSON.stringify({
         clicks: game.clicks,
-        clickPower: game.clickPower,
-        autoClicks: game.autoClicks,
         zona: game.zona,
         totalClicks: game.totalClicks,
         totalAscensions: game.totalAscensions,
@@ -529,9 +528,9 @@ function loadGame() {
     if (!data) return;
 
     game.clicks = data.clicks;
-    game.clickPower = data.clickPower;
+    game.clickPower = 1;     // vNAO SALVA VALOR PROCESSADOOOO tipo click * bonus pq se nao vira Hollow Purple >:V
+    game.autoClicks = 0;  
     game.zona = data.zona || 1;
-    game.autoClicks = data.autoClicks;
     game.totalClicks = data.totalClicks || 0;
     game.totalAscensions = data.totalAscensions || 0;
     game.totalEnemiesKilled = data.totalEnemiesKilled || 0;

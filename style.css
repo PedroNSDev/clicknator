@@ -14,32 +14,29 @@
     font-family: 'Papyrus', fantasy;
     user-select: none;
 }
-button {
-    /* 1. O Fundo com o seu GIF */
+/*button {
+   
     background-image: url("container.gif");
-    background-size: 100% 100%; /* Estica o GIF para preencher o botão todo */
+    background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-color: transparent; /* Remove a cor cinza padrão */
-    
-    /* 2. Estilo da borda e renderização */
+    background-color: transparent;
+   
     border: none;
-    image-rendering: pixelated; /* Mantém o GIF nítido se for Pixel Art */
+    image-rendering: pixelated; 
     
-    /* 3. Alinhamento do Texto */
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-family: 'Papyrus', fantasy;
     font-size: 1rem;
-    
-    /* 4. Interação */
+
     cursor: pointer;
     padding: 10px 20px;
     transition: transform 0.1s ease, filter 0.1s ease;
-}
+}*/
 
-/* Efeito de clique para todos os botões */
+
 button:active {
     transform: scale(0.95); 
     filter: brightness(0.8);  
@@ -87,7 +84,7 @@ body {
     margin-bottom: 12px;
     cursor: pointer;
     border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: transform 0.1s ease, filter 0.2s ease;
 }
 
 .nav-btn:hover, .nav-btn.active {
@@ -95,6 +92,15 @@ body {
     color: #01030d;
     border-color: var(--accent);
     font-weight: bold;
+}
+.nav-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
 }
 
 /* MAIN CONTAINER & BLUR */
@@ -167,7 +173,6 @@ body {
 
 .upgrade-card {
     background: url(container.gif);
-   image-rendering: crisp-edges;
 
     image-rendering: pixelated;
     background-size: 100% 100%;
@@ -176,7 +181,7 @@ body {
     padding: 12px;
     height: 90px; 
     width: 100%;
-    
+    /* overflow: hidden;  colocar em uma função dps kinda liked it*/
     border-radius: 15px;
     display: flex;              
     align-items: center;        
@@ -202,7 +207,7 @@ body {
   
     width: 60px;
     height: 60px;
-    border-radius: 8px;
+    border-radius: 0px;
     object-fit: cover; 
     -webkit-user-drag: none; 
     user-select: none;
@@ -241,7 +246,7 @@ body {
 .upgrade-cost {
     font-weight: bold;
     font-size: 1rem;
-    color: #facc15; /* amarelo para destaque */
+    color: #0a0a0a; 
 }
 
 /* --------------------------------------PARTICLES-------------------------------------*/
