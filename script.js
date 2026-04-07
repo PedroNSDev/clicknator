@@ -415,6 +415,7 @@
             <p>Pontos: ${this.ascensionPoints}</p>
             <p>Necessário: ${this.getAscensionRequirement()}</p>
             <button onclick="game.doAscension()">Ascender</button>
+            
         `;
         info.appendChild(header);
 
