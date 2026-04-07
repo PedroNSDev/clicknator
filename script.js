@@ -218,6 +218,7 @@
             this.killEnemy();
             this.update();
             saveGame();
+            this.clicks = 0;
         },
 
         
