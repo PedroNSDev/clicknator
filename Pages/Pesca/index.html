@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receitinhas - Pesca</title>
+    <link rel="stylesheet" href="../../style.css"> 
+</head>
+<body>
+
+    <div class="game-layout">
+        
+       <main class="main-container center-content">
+    <div class="content-section active" style="padding: 30px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        
+    
+        <img src="Pond.gif" style="width: 200px; max-width: 90%; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.5);">
+
+        <div class="enemy-ui" style="background: rgba(32, 32, 32, 0.8); padding: 20px; border-radius: 12px; border: 1px solid var(--green); width: 600px; max-width: 90%;">
+            
+            <div id="stats-bar" style="margin-top: 0; text-align: center; font-weight: bold;">
+                Últimos Peixes
+            </div>
+
+            <div style="overflow-y: auto; max-height: 180px; margin-top: 15px; border: 1px solid #333; background: #1a1a1a; border-radius: 8px;">
+                <table id="tabela-peixes" style="width: 100%; border-collapse: collapse; font-family: 'Papyrus', fantasy;">
+                    <thead>
+                        <tr style="background: var(--black); color: var(--accent); position: sticky; top: 0; z-index: 1;">
+                            <th style="padding: 12px; border-bottom: 2px solid var(--green);">Raridade</th>
+                            <th style="padding: 12px; border-bottom: 2px solid var(--green);">Nome</th>
+                            <th style="padding: 12px; border-bottom: 2px solid var(--green);">Peso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</main>
+
+        <aside class="sidebar" style="border-right: none; border-left: 1px solid #1e293b; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+            
+            <div class="logo" style="margin-bottom: 20px;">
+                
+            </div>
+
+            <div style="width: 100%; margin-bottom: 20px;">
+                
+                <div class="attack-container" style="width: 100%; margin-bottom: 15px;">
+                    <div class="attack-timer" id="cooldown-timer" style="color: var(--white); font-weight: bold;">
+                        Pronto para pescar!
+                    </div>
+                    <div class="attack-bar" style="border-radius: 4px; border-color: var(--green);">
+                        <div class="attack-fill" id="cooldown-fill" style="width: 100%; background: var(--green);"></div>
+                    </div>
+                </div>
+
+                <button id="btn-pescar" class="nav-btn" onclick="tentarPescar()" style="width: 100%; font-size: 1.2rem; padding: 20px;">
+                    🎣 Lançar Isca!
+                </button>
+            </div>
+            
+        </aside>
+
+    </div>
+
+    <script>
+   
+    const IntervalBase = 5000; 
+    let podePescar = true;
+
+    function tentarPescar() {
+        if (!podePescar) return; 
+
+        pescar();
+
+    
+        iniciarCooldown();
+    }
+
+    function iniciarCooldown() {
+        podePescar = false;
+        let tempoRestante = IntervalBase;
+        
+        const btn = document.getElementById('btn-pescar');
+        const fill = document.getElementById('cooldown-fill');
+        const timerText = document.getElementById('cooldown-timer');
+
+        btn.style.filter = 'grayscale(1) brightness(0.5)';
+        btn.style.cursor = 'not-allowed';
+        
+        fill.style.transition = 'none';
+        fill.style.width = '0%';
+        
+        void fill.offsetWidth; 
+
+        fill.style.transition = `width ${IntervalBase}ms linear`;
+        fill.style.width = '100%';
+
+        const timerInterval = setInterval(() => {
+            tempoRestante -= 100; 
+            
+            if (tempoRestante <= 0) {
+               
+                clearInterval(timerInterval);
+                podePescar = true;
+                timerText.innerText = "Pronto para pescar!";
+                
+            
+                btn.style.filter = 'none';
+                btn.style.cursor = 'pointer';
+            } else {
+                
+                timerText.innerText = `Aguarde: ${(tempoRestante / 1000).toFixed(1)}s`;
+            }
+        }, 100);
+    }
+
+    const peixesJSON = {
+        "Comum": {
+            "Salmão": { "Marinho": ["Salmão do Atlântico"], "Doce": ["Salmão de Rio"] },
+            "Truta": { "Doce": ["Truta Arco-íris"] }
+        },
+        "Raro": {
+            "Dourado": { "Marinho": ["Dourado Selvagem"], "Doce": ["Dourado de Rio"] }
+        },
+        "LENDARIO":{
+            "BrrBrrPatapim":{"Tralalelo": ["Sigma"], "TungTungSahur": ["Sigma da Bahia"] }
+        }
+    };
+
+    let peixesPescados = [];
+
+    function pescar() {
+        const raridades = Object.keys(peixesJSON);
+        const raridade = raridades[Math.floor(Math.random() * raridades.length)];
+        const especies = Object.keys(peixesJSON[raridade]);
+        const especie = especies[Math.floor(Math.random() * especies.length)];
+        const tipos = Object.keys(peixesJSON[raridade][especie]);
+        const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+        const nomes = peixesJSON[raridade][especie][tipo];
+        const nome = nomes[Math.floor(Math.random() * nomes.length)];
+        
+        const coefSorte = 0.8 + Math.random() * 0.4;
+        const peso = (Math.random() * 9 + 1) * coefSorte;
+        
+        const peixe = { raridade, nome, peso: peso.toFixed(2) };
+        peixesPescados.unshift(peixe); 
+        
+        atualizarTabela();
+    }
+
+    function atualizarTabela() {
+        const tbody = document.querySelector("#tabela-peixes tbody");
+        tbody.innerHTML = ""; 
+        
+        peixesPescados.forEach(p => {
+            const tr = document.createElement("tr");
+            tr.style.borderBottom = "1px solid #2d2d2d";
+            
+            const corRaridade = p.raridade === 'Raro' ? 'var(--glow)' : 'white';
+            
+            tr.innerHTML = `
+                <td style="padding: 12px; color: ${corRaridade};">${p.raridade}</td>
+                <td style="padding: 12px; color: white;">${p.nome}</td>
+                <td style="padding: 12px; color: var(--green);">${p.peso} kg</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+    </script>
+</body>
+</html>

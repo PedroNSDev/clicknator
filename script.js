@@ -129,6 +129,9 @@
         getAscensionRequirement() {
             return 10000 * 0.10
         },
+       NeogetAscensionRequirement(loops) {
+        return 10000 * Math.pow(1.05, loops);
+        },
         ///enemies--:
     spawnEnemy() {
         if (!enemyData.tiers) return;
@@ -136,6 +139,7 @@
         const tier = [...enemyData.tiers]
             .reverse()
             .find(t => this.zona >= t.minZona);
+            
 
         if (!tier) return;
 
@@ -143,21 +147,21 @@
             Math.floor(Math.random() * tier.enemies.length)
         ];
 
-        // escala infinita
-        const hpScale = Math.pow(1.2, this.zona);
-        const rewardScale = Math.pow(1.15, this.zona);
+        const hpScale = Math.pow(1.15, this.zona);
+        const rewardScale = Math.pow(1.20, this.zona);
 
         const hp = Math.floor(base.hp * hpScale * this.dif);
         const reward = Math.floor(base.reward * rewardScale);
 
-        this.currentEnemy = {
-            name: `${base.name}`,
+           this.currentEnemy = {
+            name: base.name,
             maxHp: hp,
             hp: hp,
             reward: reward,
-            img: base.img
-        };
-
+            img: base.img,
+            zonaNome: tier.Nome,    
+            zonaCor: tier.cor       
+    };
         this.updateEnemyUI();
     },
 
@@ -181,6 +185,8 @@
 
         document.getElementById("enemy-name").innerText =
             `${this.currentEnemy.name} (Level: ${this.zona})`;
+        document.getElementById('zona-name').innerText =
+        `${this.currentEnemy.zonaNome}`;
 
         document.getElementById("enemy-hp").innerText =
             `${this.currentEnemy.hp.toLocaleString('pt-BR', { maximumFractionDigits: 0 })} / ${this.currentEnemy.maxHp}`;
@@ -292,8 +298,8 @@
         this.attackInterval = this.attackIntervalBase / AGILITY; //
         this.autoClicks *= autoBonus;
     },
-        conquistas: [ // aplica bônus FINAL
-            new Conquista("Primeiro Clique", "con   quistas/Forca0.gif", "Você clicou!", true),
+        conquistas: [ 
+            new Conquista("Primeiro Clique", "conquistas/Forca0.gif", "Você clicou!", true),
             new Conquista("100 Cliques", "conquistas/Forca1.gif", "Clique 100x", true),
             new Conquista("1000 Cliques", "conquistas/Forca2.gif", "Clique 1000x", true),
             new Conquista("Automação", "Tomate.png", "Compre 1 upgrade ", true),
@@ -347,10 +353,11 @@
         update() {
             document.getElementById('counter').innerText = Math.floor(this.clicks).toLocaleString('pt-BR');
             document.getElementById('stats-bar').innerText = 
+            
 `Poder: ${this.clickPower} | Auto: ${this.autoClicks.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} | Intervalo: ${this.attackInterval.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}ms | DPS: ${(this.autoClicks / (this.attackInterval / 1000)).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}/s`;            this.applyAscensionBonuses()
             document.getElementById('rebirth-mult').innerText =
                 `Ascensão: ${this.ascensionPoints}`;
-           
+           document.getElementById('counter').innerText = Math.floor(this.clicks).toLocaleString('pt-BR');
             this.renderShop();
             this.renderAscension();
             this.renderStats();
@@ -401,6 +408,16 @@
         });
     },
     renderAscension() {
+          let total2 = this.clicks;
+          let needed2 = 10000;
+          let gained2 = 0;
+
+            while (total2 >= needed2) {
+                total2 -= needed2;
+                gained2++;
+                needed2 += 10000;
+            }
+            
         const info = document.getElementById("rebirth-info");
         info.innerHTML = "";
 
@@ -408,12 +425,13 @@
 
         const tree = document.createElement("div");
         tree.className = "skill-tree";
-
+        
         // header
         const header = document.createElement("div");
         header.innerHTML = `
-            <p>Pontos: ${this.ascensionPoints}</p>
-            <p>Necessário: ${this.getAscensionRequirement()}</p>
+            <p>Pontos: ${this.ascensionPoints}+ ${gained2}</p>
+            <p>Necessário: ${this.NeogetAscensionRequirement(gained2)}</p>
+            
             <button onclick="game.doAscension()">Ascender</button>
             
         `;
@@ -464,7 +482,7 @@
                 if (this.canBuy(u)) {
                     this.ascensionPoints -= u.cost;
                     u.owned = true;
-                    this.applyAscensionBonuses(); // ← ESSENCIAL
+                    this.applyAscensionBonuses(); 
                     this.renderAscension();
                     saveGame();
                 }
@@ -663,8 +681,8 @@ requestAnimationFrame(gameLoop);
                 up.owned = saved.owned;
             }
         });
-     game.applyAscensionBonuses();
-    }
+        game.applyAscensionBonuses();
+        }
             if (data.bonus) {
         game.bonus = {
             clickPowerMult: data.bonus.clickPowerMult ?? 1,
@@ -792,3 +810,64 @@ requestAnimationFrame(gameLoop);
         game.spawnEnemy();
         game.update();
     });
+
+function makeDraggable(element) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    const header = document.getElementById(element.id + "-header");
+    const iframe = element.querySelector("iframe");
+
+    if (header) {
+        header.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+    
+        if (iframe) iframe.style.pointerEvents = "none";
+        
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+      
+        if (iframe) iframe.style.pointerEvents = "auto";
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
+
+const abasAbertas = {}; // guarda quais URLs estão abertas
+
+function toggleNavigator(url, id = null) {
+    const winId = id || "janelaNavegador";
+    const win = document.getElementById(winId);
+    const frame = win.querySelector("iframe");
+
+    if (abasAbertas[url]) {
+        win.style.display = "none";
+        delete abasAbertas[url];
+        return;
+    }
+
+    frame.src = url;
+    win.style.display = "flex";
+    makeDraggable(win);
+
+    abasAbertas[url] = true;
+    
+}

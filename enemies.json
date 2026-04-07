@@ -2,6 +2,7 @@
   "tiers": [
     {
       "minZona": 1,
+      "Nome": "The Meadows",
       "cor": "#4caf50",
       "enemies": [
         { "name": "CherryCherry", "hp": 20, "reward": 10, "img": "inimigos/Cherry.gif" },
@@ -14,6 +15,7 @@
     },
     {
       "minZona": 10,
+      "Nome":"Dark Forest",
       "cor": "#4caf50",
       "enemies": [
         { "name": "DripEye", "hp": 40, "reward": 30, "img": "inimigos/OlhoDrip2.gif" },
@@ -24,6 +26,7 @@
     },
     {
       "minZona": 20,
+      "Nome":"Creepy Castle",
       "cor": "#4caf50",
       "enemies": [
         { "name": "Gloomy Shroomy", "hp": 60, "reward": 50, "img": "inimigos/gloomyShroomy.gif" },
@@ -34,6 +37,7 @@
     },
     {
       "minZona": 30,
+      "Nome":"Mushroom Fields",
       "cor": "#4caf50",
       "enemies": [
         { "name": "Saparalho", "hp": 75, "reward": 60, "img": "inimigos/Saparalho.gif" },
@@ -43,6 +47,7 @@
     },
     {
       "minZona": 40,
+      "Nome":"Graveyard",
       "cor": "#4caf50",
       "enemies": [
         { "name": "Almas Penadas", "hp": 100, "reward": 90, "img": "inimigos/AlmasPenadas.gif" },
@@ -52,6 +57,7 @@
     },
     {
       "minZona": 60,
+      "Nome":"Milto",
       "cor": "#4caf50",
       "enemies": [
         { "name": "Milto e Sergio", "hp": 200, "reward": 220, "img": "inimigos/doubleTroubleDefinitive.gif" }
@@ -59,6 +65,7 @@
     },
     {
       "minZona": 70,
+      "Nome":"Nowhere",
       "cor": "#4caf50",
       "enemies": [
         { "name": "...", "hp": 200, "reward": 220, "img": "inimigos/Template3.gif" }

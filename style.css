@@ -6,6 +6,11 @@
     --black: #202020;
     --white: #f8f8f8;
     --glow:  #ffff009e;
+    
+
+    --primary: #202020;
+    --secondary:#f8f8f8;
+    --complementar:#1d1e20;
 }
 * {
     margin: 0;
@@ -61,7 +66,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-right: 1px solid #1e293b;
+    border-right: 1px solid var(--complementar);
     z-index: 100;
 }
 
@@ -126,6 +131,14 @@ body {
 }
 
 #counter {
+    font-size: 48px;
+    user-select: none;
+    font-weight: 800;
+    color: rgb(255, 255, 255);
+    text-shadow: 0px 10px 20px rgb(0, 0, 0);
+}
+
+#zone-name {
     font-size: 64px;
     user-select: none;
     font-weight: 800;
@@ -504,10 +517,10 @@ body {
     flex-direction: column;
     gap: 10px;
     
-    /* Ajuste aqui a distância das bordas */
-    padding-left: 2px;   /* Distância da esquerda */
-    padding-right: 2px;  /* Distância da direita (o "gap" que você quer) */
-    padding-bottom: 300px; /* Espaço no final para o scroll não cortar o último */
+    
+    padding-left: 2px;  
+    padding-right: 2px;
+    padding-bottom: 300px; 
     
     overflow-y: auto;
     flex: 1;
@@ -620,4 +633,65 @@ body {
     height: 100%;
     width: 0%;
     background: rgb(255, 255, 255);
+}
+
+.window {
+    position: fixed;
+    top: 150px;
+    left: 150px;
+
+    z-index: 9999;
+    background: #111111;
+    border: 1px solid #191919;
+    border-radius: 8px;
+    box-shadow: 0 35px 50px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.window-header {
+    background: #1e293b;
+    padding: 8px 12px;
+    cursor: move;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #1a1b1c;
+}
+
+.browser-controls { display: flex; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+#browser-url {
+    flex-grow: 1;
+    background: #0f172a;
+    border: 1px solid var(--primary);
+    color: #000000;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    pointer-events: none; 
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #afaaaa;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-btn:hover { color: white; }
+
+.browser-body { flex-grow: 1; padding: 0 !important; position: relative; }
+#browser-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: rgb(29, 29, 29); 
 }

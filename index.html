@@ -9,6 +9,20 @@
      crossorigin="anonymous"></script>
 </head>
 <body>
+    <div id="janelaNavegador" class="window" style="display: none; width: 700px; height: 500px;">
+    <div id="janelaNavegador-header" class="window-header">
+        <div class="browser-controls">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <input type="text" id="browser-url" value="Pesca" readonly>
+        <button class="close-btn" onclick="document.getElementById('janelaNavegador').style.display='none'">×</button>
+    </div>
+    <div class="window-content browser-body">
+        <iframe id="browser-iframe" src="about:blank"></iframe>
+    </div>
+</div>
 
 <audio id="bg-music" src="bg.mp3" loop></audio>
 <audio id="click-sound" src="click.mp3"></audio>
@@ -22,6 +36,7 @@
     <button class="nav-btn" data-tab="conquistas" onclick="showTab('conquistas')">Conquistas</button>
     <button class="nav-btn" data-tab="patch-notes" onclick="showTab('patch-notes')">Notas</button>
     <button class="nav-btn" data-tab="stats" onclick="showTab('stats')">Estatísticas</button>
+    <button onclick="toggleNavigator('http://receitinhas.net.br/Pages/Pesca')">Abrir Pesca</button> 
     <div id="skill-tooltip" class="skill-tooltip"></div>
 </nav>
 
@@ -30,8 +45,12 @@
     <div class="center-content" id="center-content">
 
         <section id="clicker" class="content-section active">
+            <div id="zona-name"></div>
             <div id="counter">0</div>
+            
             <div id="stats-bar">Poder: 1 | Auto: 0/s</div>
+            
+
             <div class="attack-container">
             <div class="attack-timer" id="attackTimer">1.00s</div>
             
