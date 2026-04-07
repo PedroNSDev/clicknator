@@ -44,7 +44,7 @@
             if (game.ascensionPoints >= this.cost && !this.owned) {
                 game.ascensionPoints -= this.cost;
                 this.owned = true;
-                
+       
                 this.effect();
                 game.update();
                 saveGame();
@@ -103,15 +103,14 @@
 
 
     // ================= GAME =================
-    const game = {
+    const game = {  //CGAME
         clicks: 0,
         clickPower: 1,
         autoClicks: 0,
-        
-
+        attackInterval:1000,
+        attackIntervalBase:1000,
         ascensionPoints: 0,
         ascensionLevel: 0,
-
         zona: 1,
         dif: 1,
         currentEnemy: null,
@@ -128,7 +127,7 @@
         },
 
         getAscensionRequirement() {
-            return 10000 * (this.ascensionLevel + 1);
+            return 10000 * 0.10
         },
         ///enemies--:
     spawnEnemy() {
@@ -152,7 +151,7 @@
         const reward = Math.floor(base.reward * rewardScale);
 
         this.currentEnemy = {
-            name: `${base.name} +${this.zona}`,
+            name: `${base.name}`,
             maxHp: hp,
             hp: hp,
             reward: reward,
@@ -181,10 +180,10 @@
         document.getElementById("enemy-img").src = this.currentEnemy.img;
 
         document.getElementById("enemy-name").innerText =
-            `${this.currentEnemy.name} (Zona ${this.zona})`;
+            `${this.currentEnemy.name} (Level: ${this.zona})`;
 
         document.getElementById("enemy-hp").innerText =
-            `${this.currentEnemy.hp} / ${this.currentEnemy.maxHp}`;
+            `${this.currentEnemy.hp.toLocaleString('pt-BR', { maximumFractionDigits: 0 })} / ${this.currentEnemy.maxHp}`;
 
         document.getElementById("health-fill").style.width =
             hpPercent + "%";
@@ -203,7 +202,7 @@
                 gained++;
                 needed += 10000;
             }
-
+            
             this.ascensionPoints += gained;
 
             this.clicks = 0;
@@ -211,12 +210,12 @@
             this.autoClicks = 0;
             this.zona = 1;
             this.dif = 1;
-
+            needed = 10000;
             this.upgrades.forEach(u => {
                 u.owned = 0;
                 u.cost = u.baseCost;
             });
-
+            this.killEnemy();
             this.update();
             saveGame();
         },
@@ -254,7 +253,7 @@
 
         if (!u.parent) return true;
         
-
+        this.applyAscensionBonuses()
         const parent = this.ascensionUpgrades.find(x => x.id === u.parent);
         return parent && parent.owned;
     },
@@ -264,6 +263,7 @@
         this.autoClicks = 0;
 
         let autoBonus = 1;  // Placeholder
+        let AGILITY = 1;
 
         // Skill tree
         this.ascensionUpgrades.forEach(u => {
@@ -274,6 +274,9 @@
                 if (u.bonus) {
                     autoBonus += u.bonus / 100;
                 }
+                if (u.AGIL) {
+                    AGILITY += u.AGIL / 100;
+                }
             }
         });
 
@@ -283,11 +286,13 @@
             this.autoClicks += u.autoInc * u.owned;
         });
 
+
         // RESULT
+        this.attackInterval = this.attackIntervalBase / AGILITY; //
         this.autoClicks *= autoBonus;
     },
         conquistas: [ // aplica bônus FINAL
-            new Conquista("Primeiro Clique", "conaquistas/Forca0.gif", "Você clicou!", true),
+            new Conquista("Primeiro Clique", "con   quistas/Forca0.gif", "Você clicou!", true),
             new Conquista("100 Cliques", "conquistas/Forca1.gif", "Clique 100x", true),
             new Conquista("1000 Cliques", "conquistas/Forca2.gif", "Clique 1000x", true),
             new Conquista("Automação", "Tomate.png", "Compre 1 upgrade ", true),
@@ -340,18 +345,17 @@
 
         update() {
             document.getElementById('counter').innerText = Math.floor(this.clicks).toLocaleString('pt-BR');
-            document.getElementById('stats-bar').innerText =
-                `Poder: ${this.clickPower} | : ${this.autoClicks}/s`;
-
+            document.getElementById('stats-bar').innerText = 
+`Poder: ${this.clickPower} | Auto: ${this.autoClicks.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} | Intervalo: ${this.attackInterval.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}ms | DPS: ${(this.autoClicks / (this.attackInterval / 1000)).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}/s`;            this.applyAscensionBonuses()
             document.getElementById('rebirth-mult').innerText =
                 `Ascensão: ${this.ascensionPoints}`;
-            
+           
             this.renderShop();
             this.renderAscension();
             this.renderStats();
             this.renderConquistas();
             this.renderPatchNotes();
-            this.applyAscensionBonuses(); 
+     
         },
         renderStats() {
         const container = document.getElementById("stats");
@@ -558,15 +562,28 @@
         }, 150);
     }
     // ================= AUTO =================
-    setInterval(() => {
+   let lastAttack = performance.now();
+
+function gameLoop(now) {
+    const elapsed = now - lastAttack;
+    let interval = game.attackInterval;
+    
+    let progress = elapsed / interval;
+    progress = Math.min(progress, 1);
+
+    document.getElementById("attackFill").style.width = (progress * 100) + "%";
+
+    // tempo restante
+    const remaining = Math.max(0, (interval - elapsed) / 1000);
+    document.getElementById("attackTimer").textContent = remaining.toFixed(2) + "s";
+
+    if (elapsed >= interval) {
+        lastAttack = now;
+
         if (game.autoClicks > 0 && game.currentEnemy) {
-
             game.currentEnemy.hp -= game.autoClicks;
-
-            // trava HP mínimo
             game.currentEnemy.hp = Math.max(0, game.currentEnemy.hp);
 
-            // morreu KKKKK
             if (game.currentEnemy.hp <= 0) {
                 game.killEnemy();
             }
@@ -575,7 +592,13 @@
             game.update();
             saveGame();
         }
-    }, 1000);
+    }
+
+    requestAnimationFrame(gameLoop);
+}
+
+// inicia loop
+requestAnimationFrame(gameLoop);
 
     // ================= SAVE ================= FSAVE
     function saveGame() {
@@ -605,7 +628,7 @@
         }));
     }
 
-    function loadGame() {
+    function loadGame() {  //FLOAD
         const data = JSON.parse(localStorage.getItem('save'));
         if (!data) return;
 
@@ -616,6 +639,7 @@
         game.totalClicks = data.totalClicks || 0;
         game.totalAscensions = data.totalAscensions || 0;
         game.totalEnemiesKilled = data.totalEnemiesKilled || 0;
+        game.attackInterval = 1000 
         game.playTime = data.playTime || 0;
         game.ascensionPoints = data.ascensionPoints;
         game.ascensionLevel = data.ascensionLevel;

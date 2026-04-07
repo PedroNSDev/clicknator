@@ -32,6 +32,13 @@
         <section id="clicker" class="content-section active">
             <div id="counter">0</div>
             <div id="stats-bar">Poder: 1 | Auto: 0/s</div>
+            <div class="attack-container">
+            <div class="attack-timer" id="attackTimer">1.00s</div>
+            
+            <div class="attack-bar">
+                <div class="attack-fill" id="attackFill"></div>
+            </div>
+        </div>
 
             <div class="enemy-container">
                 <img id="enemy-img" class="enemy-sprite" onclick="game.click(event)">
@@ -68,13 +75,22 @@
         </section>
 
         <section id="rebirth" class="content-section">
-            <h2>Ascensão</h2>
-            <p>Reinicie sua jornada para ganhar bônus permanentes e evoluir mais rápido.</p>
-            <div id="rebirth-mult">Multiplicador: x1</div>
-            <div id="rebirth-info"></div>
-            <div id="rebirth-btn"></div>
-        </section>
-
+    <h2>Ascensão</h2>
+    <p>Reinicie sua jornada para ganhar bônus permanentes e evoluir mais rápido.</p>
+    <div id="rebirth-mult">Multiplicador: x1</div>
+    
+    <div class="ascension-layout">
+        <div id="rebirth-info"></div>
+        
+        <div class="skill-tree-wrapper">
+            <svg id="skill-lines"></svg>
+            <div id="skill-tree" class="skill-tree">
+                </div>
+        </div>
+    </div>
+    
+    <div id="rebirth-btn"></div>
+</section>
         <section id="conquistas" class="content-section">
             <h2>Conquistas</h2>
             <p>Aqui você verá todas as conquistas e troféus desbloqueados ao longo do seu progresso no jogo.</p>
