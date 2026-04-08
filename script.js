@@ -130,7 +130,8 @@
             return 10000 * 0.10
         },
        NeogetAscensionRequirement(loops) {
-        return 10000 * Math.pow(1.05, loops);
+        let needed = 10000
+        return needed * Math.pow(1.05, loops);
         },
         ///enemies--:
     spawnEnemy() {
@@ -353,7 +354,6 @@
         update() {
             document.getElementById('counter').innerText = Math.floor(this.clicks).toLocaleString('pt-BR');
             document.getElementById('stats-bar').innerText = 
-            
 `Poder: ${this.clickPower} | Auto: ${this.autoClicks.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} | Intervalo: ${this.attackInterval.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}ms | DPS: ${(this.autoClicks / (this.attackInterval / 1000)).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}/s`;            this.applyAscensionBonuses()
             document.getElementById('rebirth-mult').innerText =
                 `Ascensão: ${this.ascensionPoints}`;

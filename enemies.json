@@ -52,7 +52,19 @@
       "enemies": [
         { "name": "Almas Penadas", "hp": 100, "reward": 90, "img": "inimigos/AlmasPenadas.gif" },
         { "name": "Espreitador", "hp": 90, "reward": 80, "img": "inimigos/Espreitador.gif" },
-        { "name": "careca(OH MEU DEUS)", "hp": 80, "reward": 70, "img": "inimigos/careca.gif" }
+        { "name": "careca(OH MEU DEUS)", "hp": 95, "reward": 70, "img": "inimigos/careca.gif" }
+      ]
+    },
+     {
+      "minZona": 50,
+      "Nome":"Graveyard",
+      "cor": "#4caf50",
+      "enemies": [
+        { "name": "BarkABite", "hp": 110, "reward": 100, "img": "inimigos/BarkABite.gif" },
+        { "name": "Barkin-Hood", "hp": 115, "reward": 110, "img": "inimigos/BarkinHood.gif" },
+        { "name": "DoggyBowl", "hp": 130, "reward": 120, "img": "inimigos/DoggyBowl.gif" },
+        { "name": "PibbleMatic", "hp": 150, "reward": 140, "img": "inimigos/Pibble.gif" }
+
       ]
     },
     {

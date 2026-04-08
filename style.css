@@ -382,7 +382,10 @@ body {
     user-select: none;
     margin-bottom: 10px;
 }
-
+#enemy-name{
+    position: relative;
+    font-size: 100;
+}
 .enemy-sprite {
     width: 100%; 
     height: 90%;
